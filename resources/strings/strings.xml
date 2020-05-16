@@ -1,0 +1,9 @@
+<strings>
+
+    <string id="AppName">Daylight WF</string>
+
+    <string id="DisplayMinute">Display minute</string>
+    <string id="Precision">Precision</string>
+    <string id="DisplayBattery">Display battery</string>
+
+</strings>
