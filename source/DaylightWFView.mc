@@ -27,7 +27,7 @@ class DaylightWFView extends WatchUi.WatchFace {
         View.onUpdate(dc);
 
 		var displayMinute = Application.getApp().getProperty("DisplayMinute");
-		var precision = Application.getApp().getProperty("Precision");
+		var precision = Application.getApp().getProperty("Precision")?2:1;
 		var displayBattery = Application.getApp().getProperty("DisplayBattery");
         // Get the current time and format it correctly
         var clockTime = System.getClockTime();
@@ -42,21 +42,18 @@ class DaylightWFView extends WatchUi.WatchFace {
         var d = 0;
         dc.setColor(0xFFFFFF,0x000000);
 		dc.clear();
-		if(displayMinute) {
-			if(precision) {
-				d = (clockTime.min % 30 * 60 + clockTime.sec) / 5;
-				displayArc(dc, cx, cy, r, clockTime.min<30, d);
-			} else {
-				d = (clockTime.min * 60 + clockTime.sec) / 10;
-				displayArc(dc, cx, cy, r, true, d);
-			}
-			r = r * 0.97;
+		if(displayMinute > 0) {
+			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10/precision);
+			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d);
+			r = r * (1.0 - (displayMinute+1.0)/100.0);
 		}
-		d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
-        displayArc(dc, cx, cy, r, clockTime.hour<12, d);
-		if(displayBattery) {
-	        dc.setColor(0x000000,0x000000);
-			dc.fillCircle(cx, cy, r * (1-System.getSystemStats().battery/100));
+		if(r > 0) {
+			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
+	        displayArc(dc, cx, cy, r, clockTime.hour<12, d);
+			if(displayBattery) {
+		        dc.setColor(0x000000,0x000000);
+				dc.fillCircle(cx, cy, r * (1-System.getSystemStats().battery/100));
+			}
 		}
     }
 

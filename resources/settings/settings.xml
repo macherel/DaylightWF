@@ -1,7 +1,7 @@
 <settings>
 
     <setting propertyKey="@Properties.DisplayMinute" title="@Strings.DisplayMinute">
-        <settingConfig type="boolean" />
+        <settingConfig type="numeric" />
     </setting>
 
     <setting propertyKey="@Properties.Precision" title="@Strings.Precision">

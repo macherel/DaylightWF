@@ -2,8 +2,8 @@
 
     <string id="AppName">Daylight WF</string>
 
-    <string id="DisplayMinute">Display minute</string>
-    <string id="Precision">Precision</string>
+    <string id="DisplayMinute">Minute size</string>
+    <string id="Precision">Precision (60/30 min)</string>
     <string id="DisplayBattery">Display battery</string>
 
 </strings>
