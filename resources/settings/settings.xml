@@ -1,5 +1,9 @@
 <settings>
 
+    <setting propertyKey="@Properties.DisplayDial" title="@Strings.DisplayDial">
+        <settingConfig type="boolean" />
+    </setting>
+
     <setting propertyKey="@Properties.DisplayMinute" title="@Strings.DisplayMinute">
         <settingConfig type="numeric" />
     </setting>

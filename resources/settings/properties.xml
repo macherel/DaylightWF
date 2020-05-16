@@ -1,5 +1,6 @@
 <properties>
 
+    <property id="DisplayDial" type="boolean">true</property>
     <property id="DisplayMinute" type="number">2</property>
     <property id="Precision" type="boolean">false</property>
     <property id="DisplayBattery" type="boolean">false</property>

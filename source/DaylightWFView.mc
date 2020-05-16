@@ -6,12 +6,23 @@ using Toybox.Application;
 
 class DaylightWFView extends WatchUi.WatchFace {
 
+	var radius = 0;
+	var cx = 0;
+	var cy = 0;
+
     function initialize() {
         WatchFace.initialize();
     }
 
     // Load your resources here
     function onLayout(dc) {
+		var dcWidth = dc.getWidth();
+		var dcHeight = dc.getHeight();
+
+		radius = dcWidth<dcHeight?dcWidth/2:dcHeight/2;
+		cx = dcWidth/2;
+		cy = dcHeight/2;
+
         setLayout(Rez.Layouts.WatchFace(dc));
     }
 
@@ -35,9 +46,7 @@ class DaylightWFView extends WatchUi.WatchFace {
         // Update the view
 		var dcWidth = dc.getWidth();
 		var dcHeight = dc.getHeight();
-		var r = dcWidth<dcHeight?dcWidth/2:dcHeight/2;
-		var cx = dcWidth/2;
-		var cy = dcHeight/2;
+		var r = radius;
 
         var d = 0;
         dc.setColor(0xFFFFFF,0x000000);
@@ -55,6 +64,8 @@ class DaylightWFView extends WatchUi.WatchFace {
 				dc.fillCircle(cx, cy, r * (1-System.getSystemStats().battery/100));
 			}
 		}
+
+		drawDial(dc, r);
     }
 
 	function displayArc(dc, cx, cy, r, clockwised, degree) {
@@ -69,6 +80,39 @@ class DaylightWFView extends WatchUi.WatchFace {
 			dc.drawLine(cx, cy, cx, cy-r);
 		}
 	}
+
+
+    // Draw the watch dial
+    function drawDial(dc, dialRadius) {
+        for (var j = 2; j >= 0; j -= 2) {
+	        dc.setColor(
+	        	j>0?Graphics.COLOR_BLACK:Graphics.COLOR_LT_GRAY,
+	        	j>0?Graphics.COLOR_BLACK:Graphics.COLOR_LT_GRAY
+        	);
+	        for (var i = 0; i < 3; i += 1) {
+	        	var angle = i * 2 * Math.PI / 12;
+	            if (i % 3 == 0) {
+	                dc.setPenWidth(3+j);
+	            }
+	            else {
+	                dc.setPenWidth(1+j);
+	            }
+	
+	            var cos = Math.cos(angle);
+	            var sin = Math.sin(angle);
+	
+	            var x1 = cos * dialRadius * 0.95;
+	            var y1 = sin * dialRadius * 0.95;
+	            var x2 = cos * dialRadius * 1.05;
+	            var y2 = sin * dialRadius * 1.05;
+
+	            dc.drawLine(cx + x1, cy + y1, cx + x2, cy + y2);
+	            dc.drawLine(cx - x1, cy - y1, cx - x2, cy - y2);
+	            dc.drawLine(cx - y1, cy + x1, cx - y2, cy + x2);
+	            dc.drawLine(cx + y1, cy - x1, cx + y2, cy - x2);
+            }
+        }
+    }
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
