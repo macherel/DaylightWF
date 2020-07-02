@@ -40,6 +40,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var displayMinute = Application.getApp().getProperty("DisplayMinute");
 		var precision = Application.getApp().getProperty("Precision")?2:1;
 		var displayBattery = Application.getApp().getProperty("DisplayBattery");
+		var displayDial = Application.getApp().getProperty("DisplayDial");
         // Get the current time and format it correctly
         var clockTime = System.getClockTime();
 
@@ -51,28 +52,43 @@ class DaylightWFView extends WatchUi.WatchFace {
         var d = 0;
         dc.setColor(0xFFFFFF,0x000000);
 		dc.clear();
+
+		// Draw minutes arc
 		if(displayMinute > 0) {
 			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10/precision);
-			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d);
+			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, 0xFFFFFF, true);
 			r = r * (1.0 - (displayMinute+1.0)/100.0);
 		}
+		// Draw hours arc
 		if(r > 0) {
 			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
-	        displayArc(dc, cx, cy, r, clockTime.hour<12, d);
+	        displayArc(dc, cx, cy, r, clockTime.hour<12, d, 0xFFFFFF, true);
+			// Display Battery info
 			if(displayBattery) {
-		        dc.setColor(0x000000,0x000000);
-				dc.fillCircle(cx, cy, r * (1-System.getSystemStats().battery/100));
+				var systemStats = System.getSystemStats();
+				if(systemStats has :charging && systemStats.charging) {
+					// Draw charging arc
+			        displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x444444, false);
+				} else {
+			        dc.setColor(0x000000,0x000000);
+					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
+				}
 			}
 		}
-
-		drawDial(dc, r);
+		
+		// Draw Dial
+		if(displayDial) {
+			drawDial(dc, r);
+		}
     }
 
-	function displayArc(dc, cx, cy, r, clockwised, degree) {
+	function displayArc(dc, cx, cy, r, clockwised, degree, color, border) {
 		dc.setPenWidth(r);
-        dc.setColor(0x000000,0x000000);
-		dc.fillCircle(cx, cy, r+1);
-        dc.setColor(0xFFFFFF,0x000000);
+		if(border) {
+	        dc.setColor(0x000000,0x000000);
+			dc.fillCircle(cx, cy, r+1);
+        }
+        dc.setColor(color,0x000000);
         if(degree != 0 || !clockwised) {
 			dc.drawArc(cx, cy, r/2, clockwised?Graphics.ARC_CLOCKWISE:Graphics.ARC_COUNTER_CLOCKWISE, 90, 90-degree);
 		} else {
