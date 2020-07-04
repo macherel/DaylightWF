@@ -1,10 +1,22 @@
 <strings>
+	<string id="AppName">Daylight WF</string>
 
-    <string id="AppName">Daylight WF</string>
+	<string id="DisplayDial">Display dial</string>
+	<string id="DisplayMinute">Minute size</string>
+	<string id="Precision">Precision (60/30 min)</string>
+	<string id="DisplayBattery">Display battery</string>
 
-    <string id="DisplayDial">Display dial</string>
-    <string id="DisplayMinute">Minute size</string>
-    <string id="Precision">Precision (60/30 min)</string>
-    <string id="DisplayBattery">Display battery</string>
+	<string id="PredifinedBrightColor">Day color</string>
+	<string id="PredifinedDarkColor">Night color</string>
+	<string id="BrightColor"></string>
+	<string id="DarkColor"></string>
 
+	<string id="Custom">Custom</string>
+	<string id="Black">Black</string>
+	<string id="Blue">Blue</string>
+	<string id="Brown">Brown</string>
+	<string id="Green">Green</string>
+	<string id="Red">Red</string>
+	<string id="Yellow">Yellow</string>
+	<string id="White">White</string>
 </strings>

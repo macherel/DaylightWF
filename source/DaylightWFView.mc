@@ -37,10 +37,13 @@ class DaylightWFView extends WatchUi.WatchFace {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
 
-		var displayMinute = Application.getApp().getProperty("DisplayMinute");
-		var precision = Application.getApp().getProperty("Precision")?2:1;
-		var displayBattery = Application.getApp().getProperty("DisplayBattery");
-		var displayDial = Application.getApp().getProperty("DisplayDial");
+		Settings.load();
+		var displayMinute = Settings.displayMinute;
+		var precision = Settings.precision?2:1;
+		var displayBattery = Settings.displayBattery;
+		var displayDial = Settings.displayDial;
+		var brightColor = Settings.brightColor;
+		var darkColor = Settings.darkColor;
         // Get the current time and format it correctly
         var clockTime = System.getClockTime();
 
@@ -50,19 +53,19 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var r = radius;
 
         var d = 0;
-        dc.setColor(0xFFFFFF,0x000000);
+        dc.setColor(brightColor, darkColor);
 		dc.clear();
 
 		// Draw minutes arc
 		if(displayMinute > 0) {
 			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10/precision);
-			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, 0xFFFFFF, true);
+			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, brightColor, darkColor, true);
 			r = r * (1.0 - (displayMinute+1.0)/100.0);
 		}
 		// Draw hours arc
 		if(r > 0) {
 			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
-	        displayArc(dc, cx, cy, r, clockTime.hour<12, d, 0xFFFFFF, true);
+	        displayArc(dc, cx, cy, r, clockTime.hour<12, d, brightColor, darkColor, true);
 			// Display Battery info
 			if(displayBattery) {
 				var systemStats = System.getSystemStats();
@@ -70,7 +73,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 					// Draw charging arc
 			        displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x444444, false);
 				} else {
-			        dc.setColor(0x000000,0x000000);
+			        dc.setColor(darkColor,darkColor);
 					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
 				}
 			}
@@ -82,13 +85,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
     }
 
-	function displayArc(dc, cx, cy, r, clockwised, degree, color, border) {
+	function displayArc(dc, cx, cy, r, clockwised, degree, brightColor, darkColor, border) {
 		dc.setPenWidth(r);
 		if(border) {
-	        dc.setColor(0x000000,0x000000);
+	        dc.setColor(darkColor, darkColor);
 			dc.fillCircle(cx, cy, r+1);
         }
-        dc.setColor(color,0x000000);
+        dc.setColor(brightColor, darkColor);
         if(degree != 0 || !clockwised) {
 			dc.drawArc(cx, cy, r/2, clockwised?Graphics.ARC_CLOCKWISE:Graphics.ARC_COUNTER_CLOCKWISE, 90, 90-degree);
 		} else {

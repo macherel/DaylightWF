@@ -1,8 +1,11 @@
 <properties>
-
     <property id="DisplayDial" type="boolean">true</property>
     <property id="DisplayMinute" type="number">10</property>
     <property id="Precision" type="boolean">false</property>
     <property id="DisplayBattery" type="boolean">false</property>
 
+    <property id="PredifinedBrightColor" type="number">1</property>
+    <property id="PredifinedDarkColor" type="number">1</property>
+    <property id="BrightColor" type="string">FFFFFF</property>
+    <property id="DarkColor" type="string">000000</property>
 </properties>

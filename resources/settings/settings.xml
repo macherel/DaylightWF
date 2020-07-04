@@ -16,4 +16,36 @@
         <settingConfig type="boolean" />
     </setting>
 
+    <setting propertyKey="@Properties.PredifinedBrightColor" title="@Strings.PredifinedBrightColor">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.Custom</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Yellow</listEntry>
+            <listEntry value="3">@Strings.Blue</listEntry>
+            <listEntry value="4">@Strings.Green</listEntry>
+            <listEntry value="5">@Strings.Red</listEntry>
+            <listEntry value="6">@Strings.Black</listEntry>
+         </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.BrightColor" title="@Strings.BrightColor">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
+    <setting propertyKey="@Properties.PredifinedDarkColor" title="@Strings.PredifinedDarkColor">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.Custom</listEntry>
+            <listEntry value="1">@Strings.Black</listEntry>
+            <listEntry value="2">@Strings.Brown</listEntry>
+            <listEntry value="3">@Strings.Blue</listEntry>
+            <listEntry value="4">@Strings.Green</listEntry>
+            <listEntry value="5">@Strings.Red</listEntry>
+            <listEntry value="6">@Strings.White</listEntry>
+         </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.DarkColor" title="@Strings.DarkColor">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
 </settings>
