@@ -9,6 +9,7 @@ module Settings {
 	var precision = false;
 	var displayBattery = false;
 	var showNotifications = true;
+	var showDisconnected = false;
 
 	var brightColor = false;
 	var darkColor = false;
@@ -38,6 +39,7 @@ module Settings {
 		precision = app.getProperty("Precision");
 		displayBattery = app.getProperty("DisplayBattery");
 		showNotifications = app.getProperty("ShowNotifications");
+		showDisconnected = app.getProperty("ShowDisconnected");
 
 		var predifinedBrightColor = app.getProperty("PredifinedBrightColor");
 		if(predifinedBrightColor > 0) {

@@ -1,3 +1,9 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <bitmap id="BluetoothOff" filename="bluetooth-off.png">
+    	<palette disableTransparency="false">
+            <color>000000</color>
+            <color>FFFFFF</color>
+        </palette>
+    </bitmap>
 </drawables>

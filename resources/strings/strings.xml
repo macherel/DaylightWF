@@ -6,6 +6,7 @@
 	<string id="Precision">Precision (60/30 min)</string>
 	<string id="DisplayBattery">Display battery</string>
 	<string id="ShowNotifications">Show notifications</string>
+	<string id="ShowDisconnected">Show disconnected</string>
 
 	<string id="PredifinedBrightColor">Day color</string>
 	<string id="PredifinedDarkColor">Night color</string>
