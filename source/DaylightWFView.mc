@@ -42,6 +42,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var precision = Settings.precision?2:1;
 		var displayBattery = Settings.displayBattery;
 		var displayDial = Settings.displayDial;
+		var showNotifications = Settings.showNotifications;
 		var brightColor = Settings.brightColor;
 		var darkColor = Settings.darkColor;
         // Get the current time and format it correctly
@@ -79,6 +80,23 @@ class DaylightWFView extends WatchUi.WatchFace {
 			}
 		}
 		
+		// Show notifications
+		if(showNotifications) {
+			var deviceSettings = System.getDeviceSettings();
+			if(deviceSettings.notificationCount > 0) {
+				dc.setColor(darkColor,darkColor);
+				dc.fillCircle(cx, cy, 12);
+				dc.setColor(brightColor,darkColor);
+				dc.drawText(
+					dc.getWidth() / 2,
+					dc.getHeight() / 2,
+					Graphics.FONT_XTINY,
+					" " + deviceSettings.notificationCount + " ",
+					Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+				);
+			}
+		}
+
 		// Draw Dial
 		if(displayDial) {
 			drawDial(dc, r);

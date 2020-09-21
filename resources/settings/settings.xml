@@ -16,6 +16,10 @@
         <settingConfig type="boolean" />
     </setting>
 
+    <setting propertyKey="@Properties.ShowNotifications" title="@Strings.ShowNotifications">
+        <settingConfig type="boolean" />
+    </setting>
+
     <setting propertyKey="@Properties.PredifinedBrightColor" title="@Strings.PredifinedBrightColor">
         <settingConfig type="list">
             <listEntry value="0">@Strings.Custom</listEntry>

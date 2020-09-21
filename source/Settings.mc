@@ -8,6 +8,7 @@ module Settings {
 	var displayMinute = false;
 	var precision = false;
 	var displayBattery = false;
+	var showNotifications = true;
 
 	var brightColor = false;
 	var darkColor = false;
@@ -36,6 +37,7 @@ module Settings {
 		displayMinute = app.getProperty("DisplayMinute");
 		precision = app.getProperty("Precision");
 		displayBattery = app.getProperty("DisplayBattery");
+		showNotifications = app.getProperty("ShowNotifications");
 
 		var predifinedBrightColor = app.getProperty("PredifinedBrightColor");
 		if(predifinedBrightColor > 0) {
