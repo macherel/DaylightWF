@@ -3,6 +3,7 @@ using Toybox.Graphics;
 using Toybox.System;
 using Toybox.Lang;
 using Toybox.Application;
+using Toybox.Time.Gregorian as Calendar;
 
 class DaylightWFView extends WatchUi.WatchFace {
 
@@ -48,6 +49,8 @@ class DaylightWFView extends WatchUi.WatchFace {
 		Settings.load();
 		var displayMinute = Settings.displayMinute;
 		var precision = Settings.precision?2:1;
+		var diplayDate = Settings.displayDate;
+		var dateFormat = Settings.dateFormat;
 		var displayBattery = Settings.displayBattery;
 		var displayDial = Settings.displayDial;
 		var showNotifications = Settings.showNotifications;
@@ -122,6 +125,11 @@ class DaylightWFView extends WatchUi.WatchFace {
 		if(displayDial) {
 			drawDial(dc, r);
 		}
+
+		if(Settings.displayDate) {
+			dc.setColor(brightColor,darkColor);
+			drawDate(dc);
+		} 
 	}
 
 	function displayArc(dc, cx, cy, r, clockwised, degree, brightColor, darkColor, border) {
@@ -172,6 +180,44 @@ class DaylightWFView extends WatchUi.WatchFace {
 				dc.drawLine(cx + y1, cy - x1, cx + y2, cy - x2);
 			}
 		}
+	}
+
+	function drawDate(dc) {
+		var dcWidth = dc.getWidth();
+		var dcHeight = dc.getHeight();
+		var x = dcWidth / 2;
+		var y = dcHeight * 3/4;
+		var dateFormat = "";
+		var infoFormat = Time.FORMAT_SHORT;
+		switch(Settings.dateFormat) {
+			case 1022: // MM/DD
+				dateFormat = " $1$/$2$ ";
+				infoFormat = Time.FORMAT_SHORT;
+				break;
+			case 1031: // MMM DD
+				dateFormat = " $1$ $2$ ";
+				infoFormat = Time.FORMAT_MEDIUM;
+				break;
+			case 2022: // DD/MM
+				dateFormat = " $2$/$1$ ";
+				infoFormat = Time.FORMAT_SHORT;
+				break;
+			case 2031: // DD MMM
+				dateFormat = " $2$ $1$ ";
+				infoFormat = Time.FORMAT_MEDIUM;
+				break;
+		}
+		var now = Time.now();
+		var dateInfo = Calendar.info(now, infoFormat);
+		var month = dateInfo.month;
+		var day = dateInfo.day;
+		if(infoFormat == Time.FORMAT_SHORT) {
+			month = month.format("%02d");
+			day = day.format("%02d");
+		}
+
+		var date = Lang.format(dateFormat, [month, day]);
+		dc.drawText(x, y, Graphics.FONT_XTINY, date, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 	}
 
 	// Called when this View is removed from the screen. Save the

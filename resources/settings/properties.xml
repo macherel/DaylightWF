@@ -3,6 +3,8 @@
     <property id="DisplayMinute" type="number">10</property>
     <property id="Precision" type="boolean">false</property>
     <property id="DisplayBattery" type="boolean">false</property>
+    <property id="DisplayDate" type="boolean">false</property>
+    <property id="DateFormat" type="number">0</property>
     <property id="ShowNotifications" type="boolean">false</property>
     <property id="ShowDisconnected" type="boolean">false</property>
 

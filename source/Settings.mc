@@ -5,8 +5,10 @@ module Settings {
 
 
 	var displayDial = false;
-	var displayMinute = false;
+	var displayMinute = 0;
 	var precision = false;
+	var displayDate = false;
+	var dateFormat = 0;
 	var displayBattery = false;
 	var showNotifications = true;
 	var showDisconnected = false;
@@ -37,6 +39,8 @@ module Settings {
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");
 		precision = app.getProperty("Precision");
+		displayDate = app.getProperty("DisplayDate");
+		dateFormat = app.getProperty("DateFormat");
 		displayBattery = app.getProperty("DisplayBattery");
 		showNotifications = app.getProperty("ShowNotifications");
 		showDisconnected = app.getProperty("ShowDisconnected");

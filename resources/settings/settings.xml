@@ -12,6 +12,19 @@
         <settingConfig type="boolean" />
     </setting>
 
+    <setting propertyKey="@Properties.DisplayDate" title="@Strings.DisplayDate">
+        <settingConfig type="boolean" />
+    </setting>    
+
+    <setting propertyKey="@Properties.DateFormat" title="@Strings.DateFormat">
+        <settingConfig type="list">
+	        <listEntry value="1022">@Strings.DateFormat_MM_DD</listEntry>
+	        <listEntry value="1031">@Strings.DateFormat_MMM_DD</listEntry>
+	        <listEntry value="2022">@Strings.DateFormat_DD_MM</listEntry>
+	        <listEntry value="2031">@Strings.DateFormat_DD_MMM</listEntry>
+        </settingConfig>
+    </setting>    
+
     <setting propertyKey="@Properties.DisplayBattery" title="@Strings.DisplayBattery">
         <settingConfig type="boolean" />
     </setting>
