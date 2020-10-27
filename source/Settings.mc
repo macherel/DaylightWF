@@ -9,12 +9,14 @@ module Settings {
 	var precision = false;
 	var displayDate = false;
 	var dateFormat = 0;
-	var displayBattery = false;
+	var batteryDetails = 0;
 	var showNotifications = true;
 	var showDisconnected = false;
 
 	var brightColor = false;
 	var darkColor = false;
+	var hoursColor = false;
+	var minutesColor = false;
 
 
 	function load() {
@@ -36,14 +38,27 @@ module Settings {
 			0xFFFFFF  // White
 		];
 
+		////////////////////////////////////////////////////////////////
+		// Legacy Settings
+		var displayBattery = app.getProperty("DisplayBattery");
+		if(displayBattery) {
+			app.setProperty("DisplayBattery", false);
+			app.setProperty("BatteryDetails", 1);
+		}
+		////////////////////////////////////////////////////////////////
+
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");
 		precision = app.getProperty("Precision");
 		displayDate = app.getProperty("DisplayDate");
 		dateFormat = app.getProperty("DateFormat");
-		displayBattery = app.getProperty("DisplayBattery");
+		batteryDetails = app.getProperty("BatteryDetails");
 		showNotifications = app.getProperty("ShowNotifications");
-		showDisconnected = app.getProperty("ShowDisconnected");
+		showDisconnected = app.getProperty("ShowDisconnected");		
+
+		if(batteryDetails < 0) {
+			batteryDetails = 0;
+		}
 
 		var predifinedBrightColor = app.getProperty("PredifinedBrightColor");
 		if(predifinedBrightColor > 0) {
@@ -59,6 +74,28 @@ module Settings {
 			app.setProperty("DarkColor", darkColor.format("%06X"));
 		} else {
 			darkColor = app.getProperty("DarkColor").toNumberWithBase(0x10);
+		}
+
+		var predifinedHoursColor = app.getProperty("PredifinedHoursColor");
+		if(predifinedHoursColor > 0) {
+			hoursColor = predifinedBrightColors[predifinedHoursColor-1];
+			app.setProperty("HoursColor", hoursColor.format("%06X"));
+		} else if(predifinedHoursColor < 0) {
+			hoursColor = brightColor;
+			app.setProperty("HoursColor", hoursColor.format("%06X"));
+		} else {
+			hoursColor = app.getProperty("HoursColor").toNumberWithBase(0x10);
+		}
+
+		var predifinedMinutesColor = app.getProperty("PredifinedMinutesColor");
+		if(predifinedMinutesColor > 0) {
+			minutesColor = predifinedBrightColors[predifinedMinutesColor-1];
+			app.setProperty("MinutesColor", minutesColor.format("%06X"));
+		} else if(predifinedMinutesColor < 0) {
+			minutesColor = brightColor;
+			app.setProperty("MinutesColor", minutesColor.format("%06X"));
+		} else {
+			minutesColor = app.getProperty("MinutesColor").toNumberWithBase(0x10);
 		}
 	}
 }

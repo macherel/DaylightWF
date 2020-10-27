@@ -46,17 +46,17 @@ class DaylightWFView extends WatchUi.WatchFace {
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);
 
-		Settings.load();
 		var displayMinute = Settings.displayMinute;
 		var precision = Settings.precision?2:1;
 		var diplayDate = Settings.displayDate;
 		var dateFormat = Settings.dateFormat;
-		var displayBattery = Settings.displayBattery;
 		var displayDial = Settings.displayDial;
 		var showNotifications = Settings.showNotifications;
 		var showDisconnected = Settings.showDisconnected;
 		var brightColor = Settings.brightColor;
 		var darkColor = Settings.darkColor;
+		var hoursColor = Settings.hoursColor;
+		var minutesColor = Settings.minutesColor;
 		// Get the current time and format it correctly
 		var clockTime = System.getClockTime();
 
@@ -72,15 +72,15 @@ class DaylightWFView extends WatchUi.WatchFace {
 		// Draw minutes arc
 		if(displayMinute > 0) {
 			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10/precision);
-			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, brightColor, darkColor, true);
+			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, minutesColor, darkColor, true);
 			r = r * (1.0 - (displayMinute+1.0)/100.0);
 		}
 		// Draw hours arc
 		if(r > 0) {
 			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
-			displayArc(dc, cx, cy, r, clockTime.hour<12, d, brightColor, darkColor, true);
+			displayArc(dc, cx, cy, r, clockTime.hour<12, d, hoursColor, darkColor, true);
 			// Display Battery info
-			if(displayBattery) {
+			if(Settings.batteryDetails > 0) {
 				var systemStats = System.getSystemStats();
 				if(systemStats has :charging && systemStats.charging) {
 					// Draw charging arc
@@ -88,6 +88,12 @@ class DaylightWFView extends WatchUi.WatchFace {
 				} else {
 					dc.setColor(darkColor,darkColor);
 					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
+				}
+				dc.setPenWidth(1);
+				dc.setColor(brightColor,darkColor);
+				for(var i=1; i<Settings.batteryDetails; i++) {
+					var l = 1.0 * i * (100/Settings.batteryDetails);
+					dc.drawCircle(cx, cy, r * ((100-l)/100));
 				}
 			}
 		}

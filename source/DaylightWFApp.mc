@@ -5,6 +5,7 @@ class DaylightWFApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
+		Settings.load();
     }
 
     // onStart() is called on application start up
@@ -22,6 +23,7 @@ class DaylightWFApp extends Application.AppBase {
 
     // New app settings have been received so trigger a UI update
     function onSettingsChanged() {
+		Settings.load();
         WatchUi.requestUpdate();
     }
 

@@ -7,6 +7,7 @@
 	<string id="DisplayDate">Display date</string>
 	<string id="DateFormat">Date format</string>
 	<string id="DisplayBattery">Display battery</string>
+	<string id="BatteryDetails">Battery details</string>
 	<string id="ShowNotifications">Show notifications</string>
 	<string id="ShowDisconnected">Show disconnected</string>
 
@@ -16,8 +17,12 @@
 	<string id="DateFormat_DD_MMM">DD MMM</string>
 	<string id="PredifinedBrightColor">Day color</string>
 	<string id="PredifinedDarkColor">Night color</string>
+	<string id="PredifinedMinutesColor">Minutes color</string>
+	<string id="PredifinedHoursColor">Hours color</string>
 	<string id="BrightColor"></string>
 	<string id="DarkColor"></string>
+	<string id="HoursColor"></string>
+	<string id="MinutesColor"></string>
 
 	<string id="Custom">Custom</string>
 	<string id="Black">Black</string>

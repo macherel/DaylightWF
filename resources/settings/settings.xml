@@ -25,8 +25,8 @@
         </settingConfig>
     </setting>    
 
-    <setting propertyKey="@Properties.DisplayBattery" title="@Strings.DisplayBattery">
-        <settingConfig type="boolean" />
+    <setting propertyKey="@Properties.BatteryDetails" title="@Strings.BatteryDetails">
+        <settingConfig type="numeric" />
     </setting>
 
     <setting propertyKey="@Properties.ShowNotifications" title="@Strings.ShowNotifications">
@@ -66,6 +66,40 @@
     </setting>
 
     <setting propertyKey="@Properties.DarkColor" title="@Strings.DarkColor">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
+    <setting propertyKey="@Properties.PredifinedHoursColor" title="@Strings.PredifinedHoursColor">
+        <settingConfig type="list">
+            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+            <listEntry value="0">@Strings.Custom</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Yellow</listEntry>
+            <listEntry value="3">@Strings.Blue</listEntry>
+            <listEntry value="4">@Strings.Green</listEntry>
+            <listEntry value="5">@Strings.Red</listEntry>
+            <listEntry value="6">@Strings.Black</listEntry>
+         </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.HoursColor" title="@Strings.HoursColor">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
+    <setting propertyKey="@Properties.PredifinedMinutesColor" title="@Strings.PredifinedMinutesColor">
+        <settingConfig type="list">
+            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+            <listEntry value="0">@Strings.Custom</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Yellow</listEntry>
+            <listEntry value="3">@Strings.Blue</listEntry>
+            <listEntry value="4">@Strings.Green</listEntry>
+            <listEntry value="5">@Strings.Red</listEntry>
+            <listEntry value="6">@Strings.Black</listEntry>
+         </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.MinutesColor" title="@Strings.MinutesColor">
         <settingConfig type="alphaNumeric" />
     </setting>
 
