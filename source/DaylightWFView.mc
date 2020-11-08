@@ -84,7 +84,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 				var systemStats = System.getSystemStats();
 				if(systemStats has :charging && systemStats.charging) {
 					// Draw charging arc
-					displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x444444, false);
+					displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x444444, darkColor, false);
 				} else {
 					dc.setColor(darkColor,darkColor);
 					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
