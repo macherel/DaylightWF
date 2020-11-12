@@ -103,4 +103,19 @@
         <settingConfig type="alphaNumeric" />
     </setting>
 
+    <setting propertyKey="@Properties.PredifinedBatteryColor" title="@Strings.PredifinedBatteryColor">
+        <settingConfig type="list">
+            <listEntry value="-2">@Strings.PredifinedDarkColor</listEntry>
+            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+            <listEntry value="0">@Strings.Custom</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Gray</listEntry>
+            <listEntry value="3">@Strings.Black</listEntry>
+         </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.BatteryColor" title="@Strings.BatteryColor">
+        <settingConfig type="alphaNumeric" />
+    </setting>
+
 </settings>

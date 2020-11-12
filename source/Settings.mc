@@ -17,6 +17,7 @@ module Settings {
 	var darkColor = false;
 	var hoursColor = false;
 	var minutesColor = false;
+	var batteryColor = false;
 
 
 	function load() {
@@ -36,6 +37,11 @@ module Settings {
 			0x008000, // Green
 			0x800000, // Red
 			0xFFFFFF  // White
+		];
+		var predifinedBatteryColors = [
+			0xFFFFFF, // White
+			0x808080, // Gray
+			0x000000  // Black
 		];
 
 		////////////////////////////////////////////////////////////////
@@ -63,39 +69,49 @@ module Settings {
 		var predifinedBrightColor = app.getProperty("PredifinedBrightColor");
 		if(predifinedBrightColor > 0) {
 			brightColor = predifinedBrightColors[predifinedBrightColor-1];
-			app.setProperty("BrightColor", brightColor.format("%06X"));
 		} else {
 			brightColor = app.getProperty("BrightColor").toNumberWithBase(0x10);
 		}
+		app.setProperty("BrightColor", brightColor.format("%06X"));
 
 		var predifinedDarkColor = app.getProperty("PredifinedDarkColor");
 		if(predifinedDarkColor > 0) {
 			darkColor = predifinedDarkColors[predifinedDarkColor-1];
-			app.setProperty("DarkColor", darkColor.format("%06X"));
 		} else {
 			darkColor = app.getProperty("DarkColor").toNumberWithBase(0x10);
 		}
+		app.setProperty("DarkColor", darkColor.format("%06X"));
 
 		var predifinedHoursColor = app.getProperty("PredifinedHoursColor");
 		if(predifinedHoursColor > 0) {
 			hoursColor = predifinedBrightColors[predifinedHoursColor-1];
-			app.setProperty("HoursColor", hoursColor.format("%06X"));
 		} else if(predifinedHoursColor < 0) {
 			hoursColor = brightColor;
-			app.setProperty("HoursColor", hoursColor.format("%06X"));
 		} else {
 			hoursColor = app.getProperty("HoursColor").toNumberWithBase(0x10);
 		}
+		app.setProperty("HoursColor", hoursColor.format("%06X"));
 
 		var predifinedMinutesColor = app.getProperty("PredifinedMinutesColor");
 		if(predifinedMinutesColor > 0) {
 			minutesColor = predifinedBrightColors[predifinedMinutesColor-1];
-			app.setProperty("MinutesColor", minutesColor.format("%06X"));
 		} else if(predifinedMinutesColor < 0) {
 			minutesColor = brightColor;
-			app.setProperty("MinutesColor", minutesColor.format("%06X"));
 		} else {
 			minutesColor = app.getProperty("MinutesColor").toNumberWithBase(0x10);
 		}
+		app.setProperty("MinutesColor", minutesColor.format("%06X"));
+
+		var predifinedBatteryColor = app.getProperty("PredifinedBatteryColor");
+		if(predifinedBatteryColor > 0) {
+			batteryColor = predifinedBatteryColors[predifinedBatteryColor-1];
+		} else if(predifinedBatteryColor == -1) {
+			batteryColor = brightColor;
+		} else if(predifinedBatteryColor == -2) {
+			batteryColor = darkColor;
+		} else {
+			batteryColor = app.getProperty("BatteryColor").toNumberWithBase(0x10);
+		}
+		app.setProperty("BatteryColor", batteryColor.format("%06X"));
 	}
 }

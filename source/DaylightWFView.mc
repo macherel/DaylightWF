@@ -57,6 +57,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var darkColor = Settings.darkColor;
 		var hoursColor = Settings.hoursColor;
 		var minutesColor = Settings.minutesColor;
+		var batteryColor = Settings.batteryColor;
 		// Get the current time and format it correctly
 		var clockTime = System.getClockTime();
 
@@ -84,13 +85,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 				var systemStats = System.getSystemStats();
 				if(systemStats has :charging && systemStats.charging) {
 					// Draw charging arc
-					displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x444444, darkColor, false);
+					displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x404040, darkColor, false);
 				} else {
 					dc.setColor(darkColor,darkColor);
 					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
 				}
 				dc.setPenWidth(1);
-				dc.setColor(brightColor,darkColor);
+				dc.setColor(batteryColor,darkColor);
 				for(var i=1; i<Settings.batteryDetails; i++) {
 					var l = 1.0 * i * (100/Settings.batteryDetails);
 					dc.drawCircle(cx, cy, r * ((100-l)/100));

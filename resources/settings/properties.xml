@@ -12,8 +12,10 @@
     <property id="PredifinedDarkColor" type="number">1</property>
     <property id="PredifinedHoursColor" type="number">-1</property>
     <property id="PredifinedMinutesColor" type="number">-1</property>
+    <property id="PredifinedBatteryColor" type="number">-2</property>
     <property id="BrightColor" type="string">FFFFFF</property>
     <property id="DarkColor" type="string">000000</property>
     <property id="HoursColor" type="string">FFFFFF</property>
     <property id="MinutesColor" type="string">FFFFFF</property>
+    <property id="BatteryColor" type="string">FFFFFF</property>
 </properties>

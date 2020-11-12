@@ -19,10 +19,12 @@
 	<string id="PredifinedDarkColor">Night color</string>
 	<string id="PredifinedMinutesColor">Minutes color</string>
 	<string id="PredifinedHoursColor">Hours color</string>
+	<string id="PredifinedBatteryColor">Battery circle</string>
 	<string id="BrightColor"></string>
 	<string id="DarkColor"></string>
 	<string id="HoursColor"></string>
 	<string id="MinutesColor"></string>
+	<string id="BatteryColor"></string>
 
 	<string id="Custom">Custom</string>
 	<string id="Black">Black</string>
@@ -32,4 +34,5 @@
 	<string id="Red">Red</string>
 	<string id="Yellow">Yellow</string>
 	<string id="White">White</string>
+	<string id="Gray">Gray</string>
 </strings>
