@@ -140,7 +140,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 	}
 
 	function displayArc(dc, cx, cy, r, clockwised, degree, brightColor, darkColor, border) {
-		if(r<=0) {
+		if(r<1) {
 			return;
 		}
 		dc.setPenWidth(r);
