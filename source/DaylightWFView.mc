@@ -47,6 +47,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		View.onUpdate(dc);
 
 		var displayMinute = Settings.displayMinute;
+		var hoursPrecision = Settings.hoursPrecision?2:1;
 		var precision = Settings.precision?2:1;
 		var diplayDate = Settings.displayDate;
 		var dateFormat = Settings.dateFormat;
@@ -78,7 +79,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
 		// Draw hours arc
 		if(r > 0) {
-			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
+			d = (clockTime.hour % (24/hoursPrecision) * 60 + clockTime.min) / (4/hoursPrecision);
 			displayArc(dc, cx, cy, r, clockTime.hour<12, d, hoursColor, darkColor, true);
 			// Display Battery info
 			if(Settings.batteryDetails > 0) {
@@ -134,7 +135,11 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
 
 		if(Settings.displayDate) {
-			dc.setColor(brightColor,darkColor);
+			if(6 <= clockTime.hour && clockTime.hour < 18) {
+				dc.setColor(darkColor, hoursColor);
+			} else {
+				dc.setColor(brightColor, darkColor);
+			}
 			drawDate(dc);
 		} 
 	}
