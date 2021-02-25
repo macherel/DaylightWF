@@ -3,7 +3,6 @@
 
 	<string id="DisplayDial">Display dial</string>
 	<string id="DisplayMinute">Minute size</string>
-	<string id="HoursPrecision">24h/12h</string>
 	<string id="Precision">Precision (60/30 min)</string>
 	<string id="DisplayDate">Display date</string>
 	<string id="DateFormat">Date format</string>

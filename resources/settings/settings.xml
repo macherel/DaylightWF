@@ -8,10 +8,6 @@
         <settingConfig type="numeric" />
     </setting>
 
-    <setting propertyKey="@Properties.HoursPrecision" title="@Strings.HoursPrecision">
-        <settingConfig type="boolean" />
-    </setting>
-
     <setting propertyKey="@Properties.Precision" title="@Strings.Precision">
         <settingConfig type="boolean" />
     </setting>

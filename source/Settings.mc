@@ -6,7 +6,6 @@ module Settings {
 
 	var displayDial = false;
 	var displayMinute = 0;
-	var hoursPrecision = false;
 	var precision = false;
 	var displayDate = false;
 	var dateFormat = 0;
@@ -56,7 +55,6 @@ module Settings {
 
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");
-		hoursPrecision = app.getProperty("HoursPrecision");
 		precision = app.getProperty("Precision");
 		displayDate = app.getProperty("DisplayDate");
 		dateFormat = app.getProperty("DateFormat");
