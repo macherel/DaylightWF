@@ -7,7 +7,10 @@ module Settings {
 	var displayDial = false;
 	var displayMinute = 0;
 	var precision = false;
-	var displayDate = false;
+	var northDetail = :NONE;
+	var eastDetail = :NONE;
+	var southDetail = :NONE;
+	var westDetail = :NONE;
 	var dateFormat = 0;
 	var batteryDetails = 0;
 	var showNotifications = true;
@@ -56,7 +59,10 @@ module Settings {
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");
 		precision = app.getProperty("Precision");
-		displayDate = app.getProperty("DisplayDate");
+		northDetail = getDetail(app.getProperty("NorthDetail"));
+		eastDetail = getDetail(app.getProperty("EastDetail"));
+		southDetail = getDetail(app.getProperty("SouthDetail"));
+		westDetail = getDetail(app.getProperty("WestDetail"));
 		dateFormat = app.getProperty("DateFormat");
 		batteryDetails = app.getProperty("BatteryDetails");
 		showNotifications = app.getProperty("ShowNotifications");
@@ -113,5 +119,17 @@ module Settings {
 			batteryColor = app.getProperty("BatteryColor").toNumberWithBase(0x10);
 		}
 		app.setProperty("BatteryColor", batteryColor.format("%06X"));
+	}
+	
+	function getDetail(detail) {
+		switch(detail) {
+			case 1:
+				return :DATE;
+			case 2:
+				return :STEPS;
+			case 3:
+				return :CALORIES;
+		}
+		return :NONE;
 	}
 }

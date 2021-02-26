@@ -48,7 +48,6 @@ class DaylightWFView extends WatchUi.WatchFace {
 
 		var displayMinute = Settings.displayMinute;
 		var precision = Settings.precision?2:1;
-		var diplayDate = Settings.displayDate;
 		var dateFormat = Settings.dateFormat;
 		var displayDial = Settings.displayDial;
 		var showNotifications = Settings.showNotifications;
@@ -133,14 +132,10 @@ class DaylightWFView extends WatchUi.WatchFace {
 			drawDial(dc, r);
 		}
 
-		if(Settings.displayDate) {
-			if(6 <= clockTime.hour && clockTime.hour < 18) {
-				dc.setColor(darkColor, hoursColor);
-			} else {
-				dc.setColor(brightColor, darkColor);
-			}
-			drawDate(dc);
-		} 
+		drawDetail(dc, Settings.northDetail, :NORTH, darkColor, brightColor, hoursColor, clockTime.hour);
+		drawDetail(dc, Settings.eastDetail,  :EAST,  darkColor, brightColor, hoursColor, clockTime.hour);
+		drawDetail(dc, Settings.southDetail, :SOUTH, darkColor, brightColor, hoursColor, clockTime.hour);
+		drawDetail(dc, Settings.westDetail,  :WEST,  darkColor, brightColor, hoursColor, clockTime.hour);
 	}
 
 	function displayArc(dc, cx, cy, r, clockwised, degree, brightColor, darkColor, border) {
@@ -196,42 +191,96 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
 	}
 
-	function drawDate(dc) {
-		var dcWidth = dc.getWidth();
-		var dcHeight = dc.getHeight();
-		var x = dcWidth / 2;
-		var y = dcHeight * 3/4;
+	function drawDetail(dc, detail, position, darkColor, brightColor, hoursColor, hour) {
+		switch(detail) {
+			case :DATE:
+				drawText(dc, getDate(), position, darkColor, brightColor, hoursColor, hour);
+				break;
+			case :STEPS:
+				drawText(dc, ActivityMonitor.getInfo().steps, position, darkColor, brightColor, hoursColor, hour);
+				break;
+		}
+	}
+
+	function getDate() {
 		var dateFormat = "";
 		var infoFormat = Time.FORMAT_SHORT;
 		switch(Settings.dateFormat) {
+			case 1004: // dd DD
+				dateFormat = "$4$ $3$";
+				infoFormat = Time.FORMAT_MEDIUM;
+				break;
 			case 1022: // MM/DD
-				dateFormat = " $1$/$2$ ";
+				dateFormat = "$2$/$3$";
 				infoFormat = Time.FORMAT_SHORT;
 				break;
 			case 1031: // MMM DD
-				dateFormat = " $1$ $2$ ";
+				dateFormat = "$2$ $3$";
 				infoFormat = Time.FORMAT_MEDIUM;
 				break;
 			case 2022: // DD/MM
-				dateFormat = " $2$/$1$ ";
+				dateFormat = "$3$/$2$";
 				infoFormat = Time.FORMAT_SHORT;
 				break;
 			case 2031: // DD MMM
-				dateFormat = " $2$ $1$ ";
+				dateFormat = "$3$ $2$";
 				infoFormat = Time.FORMAT_MEDIUM;
 				break;
 		}
 		var now = Time.now();
 		var dateInfo = Calendar.info(now, infoFormat);
+		var year = dateInfo.year;
 		var month = dateInfo.month;
 		var day = dateInfo.day;
+		var dayOfWeek = dateInfo.day_of_week;
 		if(infoFormat == Time.FORMAT_SHORT) {
 			month = month.format("%02d");
 			day = day.format("%02d");
 		}
 
-		var date = Lang.format(dateFormat, [month, day]);
-		dc.drawText(x, y, Graphics.FONT_XTINY, date, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+		return Lang.format(dateFormat, [year, month, day, dayOfWeek]);
+	}
+
+	function drawText(dc, text, position, darkColor, brightColor, hoursColor, hour) {
+		var dcWidth = dc.getWidth();
+		var dcHeight = dc.getHeight();
+		var x = dcWidth / 2;
+		var y = dcHeight / 2;
+		switch(position) {
+			case :NORTH:
+				if(6 <= hour && hour < 18) {
+					dc.setColor(darkColor, hoursColor);
+				} else {
+					dc.setColor(brightColor, darkColor);
+				}
+				y = dcHeight / 4;
+				break;
+			case :EAST:
+				if(3 <= hour && hour < 15) {
+					dc.setColor(darkColor, hoursColor);
+				} else {
+					dc.setColor(brightColor, darkColor);
+				}
+				x = dcWidth * 3 / 4;
+				break;
+			case :SOUTH:
+				if(6 <= hour && hour < 18) {
+					dc.setColor(darkColor, hoursColor);
+				} else {
+					dc.setColor(brightColor, darkColor);
+				}
+				y = dcHeight * 3 / 4;
+				break;
+			case :WEST:
+				if(9 <= hour && hour < 21) {
+					dc.setColor(darkColor, hoursColor);
+				} else {
+					dc.setColor(brightColor, darkColor);
+				}
+				x = dcWidth / 4;
+				break;
+		}
+		dc.drawText(x, y, Graphics.FONT_XTINY, " " + text + " ", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 	}
 
 	// Called when this View is removed from the screen. Save the

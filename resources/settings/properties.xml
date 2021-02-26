@@ -3,7 +3,10 @@
     <property id="DisplayMinute" type="number">10</property>
     <property id="Precision" type="boolean">false</property>
     <property id="BatteryDetails" type="number">0</property>
-    <property id="DisplayDate" type="boolean">false</property>
+    <property id="NorthDetail" type="number">0</property>
+    <property id="EastDetail" type="number">0</property>
+    <property id="SouthDetail" type="number">0</property>
+    <property id="WestDetail" type="number">0</property>
     <property id="DateFormat" type="number">0</property>
     <property id="ShowNotifications" type="boolean">false</property>
     <property id="ShowDisconnected" type="boolean">false</property>

@@ -4,13 +4,22 @@
 	<string id="DisplayDial">Display dial</string>
 	<string id="DisplayMinute">Minute size</string>
 	<string id="Precision">Precision (60/30 min)</string>
-	<string id="DisplayDate">Display date</string>
+	<string id="NorthDetail">North detail</string>
+	<string id="EastDetail">East detail</string>
+	<string id="SouthDetail">South detail</string>
+	<string id="WestDetail">West detail</string>
 	<string id="DateFormat">Date format</string>
 	<string id="DisplayBattery">Display battery</string>
 	<string id="BatteryDetails">Battery details</string>
 	<string id="ShowNotifications">Show notifications</string>
 	<string id="ShowDisconnected">Show disconnected</string>
 
+	<string id="None">None</string>
+	<string id="Date">Date</string>
+	<string id="Steps">Steps</string>
+	<string id="Calories">Calories</string>
+
+	<string id="DateFormat_dd_DD">dd DD</string>
 	<string id="DateFormat_MM_DD">MM/DD</string>
 	<string id="DateFormat_MMM_DD">MMM DD</string>
 	<string id="DateFormat_DD_MM">DD/MM</string>
