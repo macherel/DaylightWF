@@ -10,6 +10,7 @@
     <property id="DateFormat" type="number">0</property>
     <property id="ShowNotifications" type="boolean">false</property>
     <property id="ShowDisconnected" type="boolean">false</property>
+    <property id="ShowIcons" type="boolean">true</property>
 
     <property id="PredifinedBrightColor" type="number">1</property>
     <property id="PredifinedDarkColor" type="number">1</property>

@@ -15,6 +15,7 @@ module Settings {
 	var batteryDetails = 0;
 	var showNotifications = true;
 	var showDisconnected = false;
+	var showIcons = true;
 
 	var brightColor = false;
 	var darkColor = false;
@@ -66,7 +67,8 @@ module Settings {
 		dateFormat = app.getProperty("DateFormat");
 		batteryDetails = app.getProperty("BatteryDetails");
 		showNotifications = app.getProperty("ShowNotifications");
-		showDisconnected = app.getProperty("ShowDisconnected");		
+		showDisconnected = app.getProperty("ShowDisconnected");	
+		showIcons = app.getProperty("ShowIcons");		
 
 		if(batteryDetails < 0) {
 			batteryDetails = 0;
@@ -126,8 +128,12 @@ module Settings {
 			case 1:
 				return :DATE;
 			case 2:
-				return :STEPS;
+				return :TIME;
 			case 3:
+				return :HEART_RATE;
+			case 4:
+				return :STEPS;
+			case 5:
 				return :CALORIES;
 		}
 		return :NONE;

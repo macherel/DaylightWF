@@ -13,9 +13,12 @@
 	<string id="BatteryDetails">Battery details</string>
 	<string id="ShowNotifications">Show notifications</string>
 	<string id="ShowDisconnected">Show disconnected</string>
+	<string id="ShowIcons">Show icons</string>
 
 	<string id="None">None</string>
 	<string id="Date">Date</string>
+	<string id="Time">Time</string>
+	<string id="HeartRate">Heart rate</string>
 	<string id="Steps">Steps</string>
 	<string id="Calories">Calories</string>
 

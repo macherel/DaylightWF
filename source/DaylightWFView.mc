@@ -8,6 +8,9 @@ using Toybox.Time.Gregorian as Calendar;
 class DaylightWFView extends WatchUi.WatchFace {
 
 	var bluetoothOff = null;
+	var heartRateIco = null;
+	var stepsIco = null;
+	var caloriesIco = null;
 
 	var radius = 0;
 	var cx = 0;
@@ -27,9 +30,21 @@ class DaylightWFView extends WatchUi.WatchFace {
 		cy = dcHeight/2;
 
 		bluetoothOff = WatchUi.loadResource(Rez.Drawables.BluetoothOff);
+		heartRateIco = WatchUi.loadResource(Rez.Drawables.HeartRate);
+		stepsIco = WatchUi.loadResource(Rez.Drawables.Steps);
+		caloriesIco = WatchUi.loadResource(Rez.Drawables.Calories);
 		if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
 			bluetoothOff = new Graphics.BufferedBitmap({
 				:bitmapResource=>bluetoothOff
+			});
+			heartRateIco = new Graphics.BufferedBitmap({
+				:bitmapResource=>heartRateIco
+			});
+			stepsIco = new Graphics.BufferedBitmap({
+				:bitmapResource=>stepsIco
+			});
+			caloriesIco = new Graphics.BufferedBitmap({
+				:bitmapResource=>caloriesIco
 			});
 		}
 		applyPalette();
@@ -37,7 +52,10 @@ class DaylightWFView extends WatchUi.WatchFace {
 	
 	function applyPalette() {
 		if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
-			bluetoothOff.setPalette([Settings.darkColor, Settings.brightColor, -1]);
+			bluetoothOff.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
+			heartRateIco.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
+			stepsIco.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
+			caloriesIco.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
 		}
 	}
 
@@ -197,10 +215,25 @@ class DaylightWFView extends WatchUi.WatchFace {
 	function drawDetail(dc, detail, position, darkColor, brightColor, hoursColor, hour) {
 		switch(detail) {
 			case :DATE:
-				drawText(dc, getDate(), position, darkColor, brightColor, hoursColor, hour);
+				drawText(dc, getDate(), null, position, darkColor, brightColor, hoursColor, hour);
+				break;
+			case :TIME:
+				drawText(dc, getTime(), null, position, darkColor, brightColor, hoursColor, hour);
+				break;
+			case :HEART_RATE:
+				if(ActivityMonitor has :getHeartRateHistory) {
+					var hrIterator = ActivityMonitor.getHeartRateHistory(1, true);
+					var sample = hrIterator.next();
+				    if (null != sample && sample.heartRate != ActivityMonitor.INVALID_HR_SAMPLE) {
+						drawText(dc, sample.heartRate, heartRateIco, position, darkColor, brightColor, hoursColor, hour);
+				    }
+				}
 				break;
 			case :STEPS:
-				drawText(dc, ActivityMonitor.getInfo().steps, position, darkColor, brightColor, hoursColor, hour);
+				drawText(dc, ActivityMonitor.getInfo().steps, stepsIco, position, darkColor, brightColor, hoursColor, hour);
+				break;
+			case :CALORIES:
+				drawText(dc, ActivityMonitor.getInfo().calories, caloriesIco, position, darkColor, brightColor, hoursColor, hour);
 				break;
 		}
 	}
@@ -244,46 +277,79 @@ class DaylightWFView extends WatchUi.WatchFace {
 		return Lang.format(dateFormat, [year, month, day, dayOfWeek]);
 	}
 
-	function drawText(dc, text, position, darkColor, brightColor, hoursColor, hour) {
-		var dcWidth = dc.getWidth();
-		var dcHeight = dc.getHeight();
+	function getTime() {
+		var clockTime = System.getClockTime();
+		var hour = clockTime.hour.format("%02d");
+		var min = clockTime.min.format("%02d");
+
+		return hour + ":" + min;
+	}
+
+	function drawText(dc, text, icon, position, darkColor, brightColor, hoursColor, hour) {
+		var border = dc.getWidth() * Settings.displayMinute / 200;
+		var dcWidth = dc.getWidth() - 2 * border;
+		var dcHeight = dc.getHeight() - 2 * border;
 		var x = dcWidth / 2;
 		var y = dcHeight / 2;
+		var foreground = brightColor;
+		var background = darkColor;
 		switch(position) {
 			case :NORTH:
 				if(6 <= hour && hour < 18) {
-					dc.setColor(darkColor, hoursColor);
+					foreground = darkColor;
+					background = hoursColor;
 				} else {
-					dc.setColor(brightColor, darkColor);
+					foreground = brightColor;
+					background = darkColor;
 				}
 				y = dcHeight / 4;
 				break;
 			case :EAST:
 				if(3 <= hour && hour < 15) {
-					dc.setColor(darkColor, hoursColor);
+					foreground = darkColor;
+					background = hoursColor;
 				} else {
-					dc.setColor(brightColor, darkColor);
+					foreground = brightColor;
+					background = darkColor;
 				}
 				x = dcWidth * 3 / 4;
 				break;
 			case :SOUTH:
 				if(6 <= hour && hour < 18) {
-					dc.setColor(darkColor, hoursColor);
+					foreground = darkColor;
+					background = hoursColor;
 				} else {
-					dc.setColor(brightColor, darkColor);
+					foreground = brightColor;
+					background = darkColor;
 				}
 				y = dcHeight * 3 / 4;
 				break;
 			case :WEST:
 				if(9 <= hour && hour < 21) {
-					dc.setColor(darkColor, hoursColor);
+					foreground = darkColor;
+					background = hoursColor;
 				} else {
-					dc.setColor(brightColor, darkColor);
+					foreground = brightColor;
+					background = darkColor;
 				}
 				x = dcWidth / 4;
 				break;
 		}
-		dc.drawText(x, y, Graphics.FONT_XTINY, " " + text + " ", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+		text = " " + text + " ";
+		var textDimensions = dc.getTextDimensions(text, Graphics.FONT_XTINY);
+		x += border;
+		y += border;
+		if(Settings.showIcons && icon != null) {
+			x += 8;
+			if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
+				icon.setPalette([background, foreground, Graphics.COLOR_TRANSPARENT]);
+			}
+			dc.setColor(background, background);
+			dc.fillRectangle(x - (textDimensions[0] / 2) - 16, y - (textDimensions[1] / 2) + 1, 16, textDimensions[1]);
+			dc.drawBitmap(x - (textDimensions[0] / 2) - 16, y - 8, icon);
+		}
+		dc.setColor(foreground, background);
+		dc.drawText(x, y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 	}
 
 	// Called when this View is removed from the screen. Save the
