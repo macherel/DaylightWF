@@ -32,7 +32,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 				:bitmapResource=>bluetoothOff
 			});
 		}
-		setLayout(Rez.Layouts.WatchFace(dc));
+		applyPalette();
+	}
+	
+	function applyPalette() {
+		if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
+			bluetoothOff.setPalette([Settings.darkColor, Settings.brightColor, -1]);
+		}
 	}
 
 	// Called when this View is brought to the foreground. Restore
@@ -120,9 +126,6 @@ class DaylightWFView extends WatchUi.WatchFace {
 			if(!deviceSettings.phoneConnected) {
 				var x = (dc.getWidth() - 24) / 2;
 				var y = (dc.getHeight() - 24) / 2;
-				if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
-					bluetoothOff.setPalette([darkColor, brightColor, -1]);
-				}
 				dc.drawBitmap(x, y, bluetoothOff);
 			}
 		}

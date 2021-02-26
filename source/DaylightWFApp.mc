@@ -3,6 +3,8 @@ using Toybox.WatchUi;
 
 class DaylightWFApp extends Application.AppBase {
 
+	var view;
+
     function initialize() {
         AppBase.initialize();
 		Settings.load();
@@ -18,12 +20,14 @@ class DaylightWFApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new DaylightWFView() ];
+    	view = new DaylightWFView();
+        return [ view ];
     }
 
     // New app settings have been received so trigger a UI update
     function onSettingsChanged() {
 		Settings.load();
+		view.applyPalette();
         WatchUi.requestUpdate();
     }
 
