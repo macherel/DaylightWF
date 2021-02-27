@@ -1,27 +1,27 @@
 <drawables>
-    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <bitmap id="BluetoothOff" filename="bluetooth-off.png">
-    	<palette disableTransparency="false">
-            <color>000000</color>
-            <color>FFFFFF</color>
-        </palette>
-    </bitmap>
-    <bitmap id="HeartRate" filename="hr.png">
-    	<palette disableTransparency="false">
-            <color>000000</color>
-            <color>FFFFFF</color>
-        </palette>
-    </bitmap>
-    <bitmap id="Steps" filename="steps.png">
-    	<palette disableTransparency="false">
-            <color>000000</color>
-            <color>FFFFFF</color>
-        </palette>
-    </bitmap>
-    <bitmap id="Calories" filename="calories.png">
-    	<palette disableTransparency="false">
-            <color>000000</color>
-            <color>FFFFFF</color>
-        </palette>
-    </bitmap>
+	<bitmap id="LauncherIcon" filename="launcher_icon.png" />
+	<bitmap id="BluetoothOff" filename="bluetooth-off.png">
+		<palette disableTransparency="false">
+			<color>000000</color>
+			<color>FFFFFF</color>
+		</palette>
+	</bitmap>
+	<bitmap id="HeartRate" filename="hr.png">
+		<palette disableTransparency="false">
+			<color>000000</color>
+			<color>FFFFFF</color>
+		</palette>
+	</bitmap>
+	<bitmap id="Steps" filename="steps.png">
+		<palette disableTransparency="false">
+			<color>000000</color>
+			<color>FFFFFF</color>
+		</palette>
+	</bitmap>
+	<bitmap id="Calories" filename="calories.png">
+		<palette disableTransparency="false">
+			<color>000000</color>
+			<color>FFFFFF</color>
+		</palette>
+	</bitmap>
 </drawables>

@@ -1,8 +1,10 @@
 <strings>
-	<string id="AppName">Daylight WF</string>
+	<string id="AppName">24h Daylight WF</string>
 
-	<string id="DisplayDial">Display dial</string>
+	<string id="Flip">Flip</string>
+	<string id="DisplayDial">Dial</string>
 	<string id="DisplayMinute">Minute size</string>
+	<string id="HoursPrecision">24h/12h</string>
 	<string id="Precision">Precision (60/30 min)</string>
 	<string id="NorthDetail">North detail</string>
 	<string id="EastDetail">East detail</string>
@@ -16,6 +18,9 @@
 	<string id="ShowIcons">Show icons</string>
 
 	<string id="None">None</string>
+	<string id="Simple">Simple</string>
+	<string id="Standard">Standard</string>
+	<string id="Detailed">Detailed</string>
 	<string id="Date">Date</string>
 	<string id="Time">Time</string>
 	<string id="HeartRate">Heart rate</string>

@@ -5,30 +5,30 @@ class DaylightWFApp extends Application.AppBase {
 
 	var view;
 
-    function initialize() {
-        AppBase.initialize();
+	function initialize() {
+		AppBase.initialize();
 		Settings.load();
-    }
+	}
 
-    // onStart() is called on application start up
-    function onStart(state) {
-    }
+	// onStart() is called on application start up
+	function onStart(state) {
+	}
 
-    // onStop() is called when your application is exiting
-    function onStop(state) {
-    }
+	// onStop() is called when your application is exiting
+	function onStop(state) {
+	}
 
-    // Return the initial view of your application here
-    function getInitialView() {
-    	view = new DaylightWFView();
-        return [ view ];
-    }
+	// Return the initial view of your application here
+	function getInitialView() {
+		view = new DaylightWFView();
+		return [ view ];
+	}
 
-    // New app settings have been received so trigger a UI update
-    function onSettingsChanged() {
+	// New app settings have been received so trigger a UI update
+	function onSettingsChanged() {
 		Settings.load();
 		view.applyPalette();
-        WatchUi.requestUpdate();
-    }
+		WatchUi.requestUpdate();
+	}
 
 }

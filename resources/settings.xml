@@ -1,163 +1,176 @@
 <settings>
 
-    <setting propertyKey="@Properties.DisplayDial" title="@Strings.DisplayDial">
-        <settingConfig type="boolean" />
-    </setting>
+	<setting propertyKey="@Properties.Flip" title="@Strings.Flip">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.DisplayMinute" title="@Strings.DisplayMinute">
-        <settingConfig type="numeric" />
-    </setting>
+	<setting propertyKey="@Properties.DisplayDial" title="@Strings.DisplayDial">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.None</listEntry>
+			<listEntry value="1">@Strings.Simple</listEntry>
+			<listEntry value="3">@Strings.Standard</listEntry>
+			<listEntry value="15">@Strings.Detailed</listEntry>
+		</settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.Precision" title="@Strings.Precision">
-        <settingConfig type="boolean" />
-    </setting>
+	<setting propertyKey="@Properties.DisplayMinute" title="@Strings.DisplayMinute">
+		<settingConfig type="numeric" />
+	</setting>
 
-    <setting propertyKey="@Properties.NorthDetail" title="@Strings.NorthDetail">
-        <settingConfig type="list">
-	        <listEntry value="0">@Strings.None</listEntry>
-	        <listEntry value="1">@Strings.Date</listEntry>
-	        <listEntry value="2">@Strings.Time</listEntry>
-	        <listEntry value="3">@Strings.HeartRate</listEntry>
-	        <listEntry value="4">@Strings.Steps</listEntry>
-	        <listEntry value="5">@Strings.Calories</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.EastDetail" title="@Strings.EastDetail">
-        <settingConfig type="list">
-	        <listEntry value="0">@Strings.None</listEntry>
-	        <listEntry value="1">@Strings.Date</listEntry>
-	        <listEntry value="2">@Strings.Time</listEntry>
-	        <listEntry value="3">@Strings.HeartRate</listEntry>
-	        <listEntry value="4">@Strings.Steps</listEntry>
-	        <listEntry value="5">@Strings.Calories</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.SouthDetail" title="@Strings.SouthDetail">
-        <settingConfig type="list">
-	        <listEntry value="0">@Strings.None</listEntry>
-	        <listEntry value="1">@Strings.Date</listEntry>
-	        <listEntry value="2">@Strings.Time</listEntry>
-	        <listEntry value="3">@Strings.HeartRate</listEntry>
-	        <listEntry value="4">@Strings.Steps</listEntry>
-	        <listEntry value="5">@Strings.Calories</listEntry>
-        </settingConfig>
-    </setting>
-    <setting propertyKey="@Properties.WestDetail" title="@Strings.WestDetail">
-        <settingConfig type="list">
-	        <listEntry value="0">@Strings.None</listEntry>
-	        <listEntry value="1">@Strings.Date</listEntry>
-	        <listEntry value="2">@Strings.Time</listEntry>
-	        <listEntry value="3">@Strings.HeartRate</listEntry>
-	        <listEntry value="4">@Strings.Steps</listEntry>
-	        <listEntry value="5">@Strings.Calories</listEntry>
-        </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.HoursPrecision" title="@Strings.HoursPrecision">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.ShowIcons" title="@Strings.ShowIcons">
-        <settingConfig type="boolean" />
-    </setting>
+	<setting propertyKey="@Properties.Precision" title="@Strings.Precision">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.DateFormat" title="@Strings.DateFormat">
-        <settingConfig type="list">
-	        <listEntry value="1004">@Strings.DateFormat_dd_DD</listEntry>
-	        <listEntry value="1022">@Strings.DateFormat_MM_DD</listEntry>
-	        <listEntry value="1031">@Strings.DateFormat_MMM_DD</listEntry>
-	        <listEntry value="2022">@Strings.DateFormat_DD_MM</listEntry>
-	        <listEntry value="2031">@Strings.DateFormat_DD_MMM</listEntry>
-        </settingConfig>
-    </setting>    
+	<setting propertyKey="@Properties.NorthDetail" title="@Strings.NorthDetail">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.None</listEntry>
+			<listEntry value="1">@Strings.Date</listEntry>
+			<listEntry value="2">@Strings.Time</listEntry>
+			<listEntry value="3">@Strings.HeartRate</listEntry>
+			<listEntry value="4">@Strings.Steps</listEntry>
+			<listEntry value="5">@Strings.Calories</listEntry>
+		</settingConfig>
+	</setting>
+	<setting propertyKey="@Properties.EastDetail" title="@Strings.EastDetail">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.None</listEntry>
+			<listEntry value="1">@Strings.Date</listEntry>
+			<listEntry value="2">@Strings.Time</listEntry>
+			<listEntry value="3">@Strings.HeartRate</listEntry>
+			<listEntry value="4">@Strings.Steps</listEntry>
+			<listEntry value="5">@Strings.Calories</listEntry>
+		</settingConfig>
+	</setting>
+	<setting propertyKey="@Properties.SouthDetail" title="@Strings.SouthDetail">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.None</listEntry>
+			<listEntry value="1">@Strings.Date</listEntry>
+			<listEntry value="2">@Strings.Time</listEntry>
+			<listEntry value="3">@Strings.HeartRate</listEntry>
+			<listEntry value="4">@Strings.Steps</listEntry>
+			<listEntry value="5">@Strings.Calories</listEntry>
+		</settingConfig>
+	</setting>
+	<setting propertyKey="@Properties.WestDetail" title="@Strings.WestDetail">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.None</listEntry>
+			<listEntry value="1">@Strings.Date</listEntry>
+			<listEntry value="2">@Strings.Time</listEntry>
+			<listEntry value="3">@Strings.HeartRate</listEntry>
+			<listEntry value="4">@Strings.Steps</listEntry>
+			<listEntry value="5">@Strings.Calories</listEntry>
+		</settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.BatteryDetails" title="@Strings.BatteryDetails">
-        <settingConfig type="numeric" />
-    </setting>
+	<setting propertyKey="@Properties.ShowIcons" title="@Strings.ShowIcons">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.ShowNotifications" title="@Strings.ShowNotifications">
-        <settingConfig type="boolean" />
-    </setting>
+	<setting propertyKey="@Properties.DateFormat" title="@Strings.DateFormat">
+		<settingConfig type="list">
+			<listEntry value="1004">@Strings.DateFormat_dd_DD</listEntry>
+			<listEntry value="1022">@Strings.DateFormat_MM_DD</listEntry>
+			<listEntry value="1031">@Strings.DateFormat_MMM_DD</listEntry>
+			<listEntry value="2022">@Strings.DateFormat_DD_MM</listEntry>
+			<listEntry value="2031">@Strings.DateFormat_DD_MMM</listEntry>
+		</settingConfig>
+	</setting>	
 
-    <setting propertyKey="@Properties.ShowDisconnected" title="@Strings.ShowDisconnected">
-        <settingConfig type="boolean" />
-    </setting>
+	<setting propertyKey="@Properties.BatteryDetails" title="@Strings.BatteryDetails">
+		<settingConfig type="numeric" />
+	</setting>
 
-    <setting propertyKey="@Properties.PredifinedBrightColor" title="@Strings.PredifinedBrightColor">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.Custom</listEntry>
-            <listEntry value="1">@Strings.White</listEntry>
-            <listEntry value="2">@Strings.Yellow</listEntry>
-            <listEntry value="3">@Strings.Blue</listEntry>
-            <listEntry value="4">@Strings.Green</listEntry>
-            <listEntry value="5">@Strings.Red</listEntry>
-            <listEntry value="6">@Strings.Black</listEntry>
-         </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.ShowNotifications" title="@Strings.ShowNotifications">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.BrightColor" title="@Strings.BrightColor">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+	<setting propertyKey="@Properties.ShowDisconnected" title="@Strings.ShowDisconnected">
+		<settingConfig type="boolean" />
+	</setting>
 
-    <setting propertyKey="@Properties.PredifinedDarkColor" title="@Strings.PredifinedDarkColor">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.Custom</listEntry>
-            <listEntry value="1">@Strings.Black</listEntry>
-            <listEntry value="2">@Strings.Brown</listEntry>
-            <listEntry value="3">@Strings.Blue</listEntry>
-            <listEntry value="4">@Strings.Green</listEntry>
-            <listEntry value="5">@Strings.Red</listEntry>
-            <listEntry value="6">@Strings.White</listEntry>
-         </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.PredifinedBrightColor" title="@Strings.PredifinedBrightColor">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.White</listEntry>
+			<listEntry value="2">@Strings.Yellow</listEntry>
+			<listEntry value="3">@Strings.Blue</listEntry>
+			<listEntry value="4">@Strings.Green</listEntry>
+			<listEntry value="5">@Strings.Red</listEntry>
+			<listEntry value="6">@Strings.Black</listEntry>
+		 </settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.DarkColor" title="@Strings.DarkColor">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+	<setting propertyKey="@Properties.BrightColor" title="@Strings.BrightColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
 
-    <setting propertyKey="@Properties.PredifinedHoursColor" title="@Strings.PredifinedHoursColor">
-        <settingConfig type="list">
-            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
-            <listEntry value="0">@Strings.Custom</listEntry>
-            <listEntry value="1">@Strings.White</listEntry>
-            <listEntry value="2">@Strings.Yellow</listEntry>
-            <listEntry value="3">@Strings.Blue</listEntry>
-            <listEntry value="4">@Strings.Green</listEntry>
-            <listEntry value="5">@Strings.Red</listEntry>
-            <listEntry value="6">@Strings.Black</listEntry>
-         </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.PredifinedDarkColor" title="@Strings.PredifinedDarkColor">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.Black</listEntry>
+			<listEntry value="2">@Strings.Brown</listEntry>
+			<listEntry value="3">@Strings.Blue</listEntry>
+			<listEntry value="4">@Strings.Green</listEntry>
+			<listEntry value="5">@Strings.Red</listEntry>
+			<listEntry value="6">@Strings.White</listEntry>
+		 </settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.HoursColor" title="@Strings.HoursColor">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+	<setting propertyKey="@Properties.DarkColor" title="@Strings.DarkColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
 
-    <setting propertyKey="@Properties.PredifinedMinutesColor" title="@Strings.PredifinedMinutesColor">
-        <settingConfig type="list">
-            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
-            <listEntry value="0">@Strings.Custom</listEntry>
-            <listEntry value="1">@Strings.White</listEntry>
-            <listEntry value="2">@Strings.Yellow</listEntry>
-            <listEntry value="3">@Strings.Blue</listEntry>
-            <listEntry value="4">@Strings.Green</listEntry>
-            <listEntry value="5">@Strings.Red</listEntry>
-            <listEntry value="6">@Strings.Black</listEntry>
-         </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.PredifinedHoursColor" title="@Strings.PredifinedHoursColor">
+		<settingConfig type="list">
+			<listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.White</listEntry>
+			<listEntry value="2">@Strings.Yellow</listEntry>
+			<listEntry value="3">@Strings.Blue</listEntry>
+			<listEntry value="4">@Strings.Green</listEntry>
+			<listEntry value="5">@Strings.Red</listEntry>
+			<listEntry value="6">@Strings.Black</listEntry>
+		 </settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.MinutesColor" title="@Strings.MinutesColor">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+	<setting propertyKey="@Properties.HoursColor" title="@Strings.HoursColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
 
-    <setting propertyKey="@Properties.PredifinedBatteryColor" title="@Strings.PredifinedBatteryColor">
-        <settingConfig type="list">
-            <listEntry value="-2">@Strings.PredifinedDarkColor</listEntry>
-            <listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
-            <listEntry value="0">@Strings.Custom</listEntry>
-            <listEntry value="1">@Strings.White</listEntry>
-            <listEntry value="2">@Strings.Gray</listEntry>
-            <listEntry value="3">@Strings.Black</listEntry>
-         </settingConfig>
-    </setting>
+	<setting propertyKey="@Properties.PredifinedMinutesColor" title="@Strings.PredifinedMinutesColor">
+		<settingConfig type="list">
+			<listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.White</listEntry>
+			<listEntry value="2">@Strings.Yellow</listEntry>
+			<listEntry value="3">@Strings.Blue</listEntry>
+			<listEntry value="4">@Strings.Green</listEntry>
+			<listEntry value="5">@Strings.Red</listEntry>
+			<listEntry value="6">@Strings.Black</listEntry>
+		 </settingConfig>
+	</setting>
 
-    <setting propertyKey="@Properties.BatteryColor" title="@Strings.BatteryColor">
-        <settingConfig type="alphaNumeric" />
-    </setting>
+	<setting propertyKey="@Properties.MinutesColor" title="@Strings.MinutesColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
+
+	<setting propertyKey="@Properties.PredifinedBatteryColor" title="@Strings.PredifinedBatteryColor">
+		<settingConfig type="list">
+			<listEntry value="-2">@Strings.PredifinedDarkColor</listEntry>
+			<listEntry value="-1">@Strings.PredifinedBrightColor</listEntry>
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.White</listEntry>
+			<listEntry value="2">@Strings.Gray</listEntry>
+			<listEntry value="3">@Strings.Black</listEntry>
+		 </settingConfig>
+	</setting>
+
+	<setting propertyKey="@Properties.BatteryColor" title="@Strings.BatteryColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
 
 </settings>

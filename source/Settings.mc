@@ -4,8 +4,10 @@ using Toybox.WatchUi as Ui;
 module Settings {
 
 
-	var displayDial = false;
+	var flip = false;
+	var displayDial = 3;
 	var displayMinute = 0;
+	var hoursPrecision = false;
 	var precision = false;
 	var northDetail = :NONE;
 	var eastDetail = :NONE;
@@ -48,17 +50,10 @@ module Settings {
 			0x000000  // Black
 		];
 
-		////////////////////////////////////////////////////////////////
-		// Legacy Settings
-		var displayBattery = app.getProperty("DisplayBattery");
-		if(displayBattery) {
-			app.setProperty("DisplayBattery", false);
-			app.setProperty("BatteryDetails", 1);
-		}
-		////////////////////////////////////////////////////////////////
-
+		flip = app.getProperty("Flip");
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");
+		hoursPrecision = app.getProperty("HoursPrecision");
 		precision = app.getProperty("Precision");
 		northDetail = getDetail(app.getProperty("NorthDetail"));
 		eastDetail = getDetail(app.getProperty("EastDetail"));

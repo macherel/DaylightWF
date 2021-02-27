@@ -71,6 +71,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		View.onUpdate(dc);
 
 		var displayMinute = Settings.displayMinute;
+		var hoursPrecision = Settings.hoursPrecision?2:1;
 		var precision = Settings.precision?2:1;
 		var dateFormat = Settings.dateFormat;
 		var displayDial = Settings.displayDial;
@@ -95,13 +96,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 
 		// Draw minutes arc
 		if(displayMinute > 0) {
-			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10/precision);
+			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10 / precision);
 			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, minutesColor, darkColor, true);
 			r = r * (1.0 - (displayMinute+1.0)/100.0);
 		}
 		// Draw hours arc
 		if(r > 0) {
-			d = (clockTime.hour % 12 * 60 + clockTime.min) / 2;
+			d = (clockTime.hour % (24/hoursPrecision) * 60 + clockTime.min) / (4/hoursPrecision);
 			displayArc(dc, cx, cy, r, clockTime.hour<12, d, hoursColor, darkColor, true);
 			// Display Battery info
 			if(Settings.batteryDetails > 0) {
@@ -149,7 +150,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
 
 		// Draw Dial
-		if(displayDial) {
+		if(displayDial > 0) {
 			drawDial(dc, r);
 		}
 
@@ -170,10 +171,18 @@ class DaylightWFView extends WatchUi.WatchFace {
 		}
 		dc.setColor(brightColor, darkColor);
 		if(degree != 0 || !clockwised) {
-			dc.drawArc(cx, cy, r/2, clockwised?Graphics.ARC_CLOCKWISE:Graphics.ARC_COUNTER_CLOCKWISE, 90, 90-degree);
+			var start = 90;
+			if(Settings.flip) {
+				start += 180;
+			}
+			dc.drawArc(cx, cy, r/2, clockwised?Graphics.ARC_CLOCKWISE:Graphics.ARC_COUNTER_CLOCKWISE, start, start-degree);
 		} else {
 			dc.setPenWidth(1);
-			dc.drawLine(cx, cy, cx, cy-r);
+			if(Settings.flip) {
+				dc.drawLine(cx, cy, cx, cy+r);
+			} else {
+				dc.drawLine(cx, cy, cx, cy-r);
+			}
 		}
 	}
 
@@ -185,13 +194,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 				j>0?Settings.darkColor:Settings.brightColor,
 				j>0?Settings.darkColor:Settings.brightColor
 			);
-			for (var i = 0; i < 3; i += 1) {
-				var angle = i * 2 * Math.PI / 12;
+			var detail = Settings.displayDial;
+			for (var i = 0; i < detail; i += 1) {
+				var angle = i * 2 * Math.PI / (4*detail);
 				var scale = 0;
-				if (i % 3 == 0) {
+				if (i % 5 == 0) {
 					dc.setPenWidth(3+j);
-				}
-				else {
+				} else {
 					dc.setPenWidth(2+j);
 					scale = 0.02;
 				}
@@ -224,9 +233,9 @@ class DaylightWFView extends WatchUi.WatchFace {
 				if(ActivityMonitor has :getHeartRateHistory) {
 					var hrIterator = ActivityMonitor.getHeartRateHistory(1, true);
 					var sample = hrIterator.next();
-				    if (null != sample && sample.heartRate != ActivityMonitor.INVALID_HR_SAMPLE) {
+					if (null != sample && sample.heartRate != ActivityMonitor.INVALID_HR_SAMPLE) {
 						drawText(dc, sample.heartRate, heartRateIco, position, darkColor, brightColor, hoursColor, hour);
-				    }
+					}
 				}
 				break;
 			case :STEPS:
