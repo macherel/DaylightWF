@@ -20,6 +20,17 @@ class DaylightWFView extends WatchUi.WatchFace {
 		WatchFace.initialize();
 	}
 
+	private function createBufferedBitmap(bitmapResource as WatchUi.BitmapResource or Graphics.BitmapReference) {
+		var options = {
+			:bitmapResource=>bitmapResource
+		};
+		if (Graphics has :createBufferedBitmap) {
+			return Graphics.createBufferedBitmap(options).get();
+		} else {
+			return new Graphics.BufferedBitmap(options);
+		}
+	}
+
 	// Load your resources here
 	function onLayout(dc) {
 		var dcWidth = dc.getWidth();
@@ -34,18 +45,10 @@ class DaylightWFView extends WatchUi.WatchFace {
 		stepsIco = WatchUi.loadResource(Rez.Drawables.Steps);
 		caloriesIco = WatchUi.loadResource(Rez.Drawables.Calories);
 		if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
-			bluetoothOff = new Graphics.BufferedBitmap({
-				:bitmapResource=>bluetoothOff
-			});
-			heartRateIco = new Graphics.BufferedBitmap({
-				:bitmapResource=>heartRateIco
-			});
-			stepsIco = new Graphics.BufferedBitmap({
-				:bitmapResource=>stepsIco
-			});
-			caloriesIco = new Graphics.BufferedBitmap({
-				:bitmapResource=>caloriesIco
-			});
+			bluetoothOff = createBufferedBitmap(bluetoothOff);
+			heartRateIco = createBufferedBitmap(heartRateIco);
+			stepsIco = createBufferedBitmap(stepsIco);
+			caloriesIco = createBufferedBitmap(caloriesIco);
 		}
 		applyPalette();
 	}
