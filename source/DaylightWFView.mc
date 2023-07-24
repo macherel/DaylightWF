@@ -106,7 +106,7 @@ class DaylightWFView extends WatchUi.WatchFace {
 		// Draw hours arc
 		if(r > 0) {
 			d = (clockTime.hour % (24/hoursPrecision) * 60 + clockTime.min) / (4/hoursPrecision);
-			displayArc(dc, cx, cy, r, clockTime.hour<12, d, hoursColor, darkColor, true);
+			displayArc(dc, cx, cy, r, hoursPrecision==1 || clockTime.hour<12, d, hoursColor, darkColor, true);
 			// Display Battery info
 			if(Settings.batteryDetails > 0) {
 				var systemStats = System.getSystemStats();
@@ -305,47 +305,95 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var y = dcHeight / 2;
 		var foreground = brightColor;
 		var background = darkColor;
-		switch(position) {
-			case :NORTH:
-				if(6 <= hour && hour < 18) {
-					foreground = darkColor;
-					background = hoursColor;
-				} else {
-					foreground = brightColor;
-					background = darkColor;
-				}
-				y = dcHeight / 4;
-				break;
-			case :EAST:
-				if(3 <= hour && hour < 15) {
-					foreground = darkColor;
-					background = hoursColor;
-				} else {
-					foreground = brightColor;
-					background = darkColor;
-				}
-				x = dcWidth * 3 / 4;
-				break;
-			case :SOUTH:
-				if(6 <= hour && hour < 18) {
-					foreground = darkColor;
-					background = hoursColor;
-				} else {
-					foreground = brightColor;
-					background = darkColor;
-				}
-				y = dcHeight * 3 / 4;
-				break;
-			case :WEST:
-				if(9 <= hour && hour < 21) {
-					foreground = darkColor;
-					background = hoursColor;
-				} else {
-					foreground = brightColor;
-					background = darkColor;
-				}
-				x = dcWidth / 4;
-				break;
+		if(!Settings.hoursPrecision) {
+			hour /= 2;
+		}
+		if(Settings.flip) {
+			switch(position) {
+				case :NORTH:
+					if(6 <= hour && hour < 18) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					y = dcHeight / 4;
+					break;
+				case :EAST:
+					if(9 <= hour && hour < 21) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					x = dcWidth * 3 / 4;
+					break;
+				case :SOUTH:
+					if(6 <= hour && hour < 18) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					y = dcHeight * 3 / 4;
+					break;
+				case :WEST:
+					if(3 <= hour && hour < 15) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					x = dcWidth / 4;
+					break;
+			}
+		} else {
+			switch(position) {
+				case :NORTH:
+					if(6 <= hour && hour < 18) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					y = dcHeight / 4;
+					break;
+				case :EAST:
+					if(3 <= hour && hour < 15) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					x = dcWidth * 3 / 4;
+					break;
+				case :SOUTH:
+					if(6 <= hour && hour < 18) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					y = dcHeight * 3 / 4;
+					break;
+				case :WEST:
+					if(9 <= hour && hour < 21) {
+						foreground = darkColor;
+						background = hoursColor;
+					} else {
+						foreground = brightColor;
+						background = darkColor;
+					}
+					x = dcWidth / 4;
+					break;
+			}
 		}
 		text = " " + text + " ";
 		var textDimensions = dc.getTextDimensions(text, Graphics.FONT_XTINY);
