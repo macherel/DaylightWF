@@ -3,7 +3,7 @@ using Toybox.WatchUi as Ui;
 
 module Settings {
 
-
+	var centeredDisplay = true;
 	var flip = false;
 	var displayDial = 3;
 	var displayMinute = 0;
@@ -50,6 +50,7 @@ module Settings {
 			0x000000  // Black
 		];
 
+		centeredDisplay = App.loadResource(Rez.JsonData.centeredDisplay);;
 		flip = app.getProperty("Flip");
 		displayDial = app.getProperty("DisplayDial");
 		displayMinute = app.getProperty("DisplayMinute");

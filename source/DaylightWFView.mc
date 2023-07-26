@@ -15,6 +15,8 @@ class DaylightWFView extends WatchUi.WatchFace {
 	var radius = 0;
 	var cx = 0;
 	var cy = 0;
+	var dx = 0;
+	var dy = 0;
 
 	function initialize() {
 		WatchFace.initialize();
@@ -39,6 +41,12 @@ class DaylightWFView extends WatchUi.WatchFace {
 		radius = dcWidth<dcHeight?dcWidth/2:dcHeight/2;
 		cx = dcWidth/2;
 		cy = dcHeight/2;
+		if(!Settings.centeredDisplay) {
+			dx = radius - cx;
+			dy = radius - cy;
+			cx = radius;
+			cy = radius;
+		}
 
 		bluetoothOff = WatchUi.loadResource(Rez.Drawables.BluetoothOff);
 		heartRateIco = WatchUi.loadResource(Rez.Drawables.HeartRate);
@@ -76,7 +84,6 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var displayMinute = Settings.displayMinute;
 		var hoursPrecision = Settings.hoursPrecision?2:1;
 		var precision = Settings.precision?2:1;
-		var dateFormat = Settings.dateFormat;
 		var displayDial = Settings.displayDial;
 		var showNotifications = Settings.showNotifications;
 		var showDisconnected = Settings.showDisconnected;
@@ -89,8 +96,6 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var clockTime = System.getClockTime();
 
 		// Update the view
-		var dcWidth = dc.getWidth();
-		var dcHeight = dc.getHeight();
 		var r = radius;
 
 		var d = 0;
@@ -298,107 +303,79 @@ class DaylightWFView extends WatchUi.WatchFace {
 	}
 
 	function drawText(dc, text, icon, position, darkColor, brightColor, hoursColor, hour) {
-		var border = dc.getWidth() * Settings.displayMinute / 200;
-		var dcWidth = dc.getWidth() - 2 * border;
-		var dcHeight = dc.getHeight() - 2 * border;
-		var x = dcWidth / 2;
-		var y = dcHeight / 2;
+		var delta = radius * (100 - Settings.displayMinute) / 200;
+		var x = cx;
+		var y = cy;
+		switch(position) {
+			case :NORTH:
+				y -= delta;
+				break;
+			case :EAST:
+				x += delta;
+				break;
+			case :SOUTH:
+				y += delta;
+				break;
+			case :WEST:
+				x -= delta;
+				break;
+		}
 		var foreground = brightColor;
 		var background = darkColor;
 		if(!Settings.hoursPrecision) {
 			hour /= 2;
 		}
-		if(Settings.flip) {
+		var p = position;
+		if(Settings.flip){
 			switch(position) {
-				case :NORTH:
-					if(6 <= hour && hour < 18) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					y = dcHeight / 4;
-					break;
 				case :EAST:
-					if(9 <= hour && hour < 21) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					x = dcWidth * 3 / 4;
-					break;
-				case :SOUTH:
-					if(6 <= hour && hour < 18) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					y = dcHeight * 3 / 4;
+					p = :WEST;
 					break;
 				case :WEST:
-					if(3 <= hour && hour < 15) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					x = dcWidth / 4;
-					break;
-			}
-		} else {
-			switch(position) {
-				case :NORTH:
-					if(6 <= hour && hour < 18) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					y = dcHeight / 4;
-					break;
-				case :EAST:
-					if(3 <= hour && hour < 15) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					x = dcWidth * 3 / 4;
-					break;
-				case :SOUTH:
-					if(6 <= hour && hour < 18) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					y = dcHeight * 3 / 4;
-					break;
-				case :WEST:
-					if(9 <= hour && hour < 21) {
-						foreground = darkColor;
-						background = hoursColor;
-					} else {
-						foreground = brightColor;
-						background = darkColor;
-					}
-					x = dcWidth / 4;
+					p = :EAST;
 					break;
 			}
 		}
+		switch(p) {
+			case :NORTH:
+				if(6 <= hour && hour < 18) {
+					foreground = darkColor;
+					background = hoursColor;
+				} else {
+					foreground = brightColor;
+					background = darkColor;
+				}
+				break;
+			case :EAST:
+				if(3 <= hour && hour < 15) {
+					foreground = darkColor;
+					background = hoursColor;
+				} else {
+					foreground = brightColor;
+					background = darkColor;
+				}
+				break;
+			case :SOUTH:
+				if(6 <= hour && hour < 18) {
+					foreground = darkColor;
+					background = hoursColor;
+				} else {
+					foreground = brightColor;
+					background = darkColor;
+				}
+				break;
+			case :WEST:
+				if(9 <= hour && hour < 21) {
+					foreground = darkColor;
+					background = hoursColor;
+				} else {
+					foreground = brightColor;
+					background = darkColor;
+				}
+				break;
+		}
 		text = " " + text + " ";
 		var textDimensions = dc.getTextDimensions(text, Graphics.FONT_XTINY);
-		x += border;
-		y += border;
 		if(Settings.showIcons && icon != null) {
 			x += 8;
 			if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
