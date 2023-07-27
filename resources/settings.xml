@@ -17,6 +17,15 @@
 		<settingConfig type="numeric" />
 	</setting>
 
+	<setting propertyKey="@Properties.DisplaySeconds" title="@Strings.DisplaySeconds">
+		<settingConfig type="list">
+			<listEntry value="0">@Strings.Off</listEntry>
+			<listEntry value="1">@Strings.OverMinutes</listEntry>
+			<listEntry value="2">@Strings.OverHours</listEntry>
+			<listEntry value="3">@Strings.Full</listEntry>
+		</settingConfig>
+	</setting>
+
 	<setting propertyKey="@Properties.HoursPrecision" title="@Strings.HoursPrecision">
 		<settingConfig type="boolean" />
 	</setting>
@@ -77,6 +86,12 @@
 			<listEntry value="1031">@Strings.DateFormat_MMM_DD</listEntry>
 			<listEntry value="2022">@Strings.DateFormat_DD_MM</listEntry>
 			<listEntry value="2031">@Strings.DateFormat_DD_MMM</listEntry>
+		</settingConfig>
+	</setting>	
+	<setting propertyKey="@Properties.TimeFormat" title="@Strings.TimeFormat">
+		<settingConfig type="list">
+			<listEntry value="220">@Strings.TimeFormat_hh_mm</listEntry>
+			<listEntry value="222">@Strings.TimeFormat_hh_mm_ss</listEntry>
 		</settingConfig>
 	</setting>	
 
@@ -155,6 +170,24 @@
 	</setting>
 
 	<setting propertyKey="@Properties.MinutesColor" title="@Strings.MinutesColor">
+		<settingConfig type="alphaNumeric" />
+	</setting>
+
+
+	<setting propertyKey="@Properties.PredifinedSecondsColor" title="@Strings.PredifinedSecondsColor">
+		<settingConfig type="list">
+			<listEntry value="-1">@Strings.Auto</listEntry>
+			<listEntry value="0">@Strings.Custom</listEntry>
+			<listEntry value="1">@Strings.White</listEntry>
+			<listEntry value="2">@Strings.Yellow</listEntry>
+			<listEntry value="3">@Strings.Blue</listEntry>
+			<listEntry value="4">@Strings.Green</listEntry>
+			<listEntry value="5">@Strings.Red</listEntry>
+			<listEntry value="6">@Strings.Black</listEntry>
+		 </settingConfig>
+	</setting>
+
+	<setting propertyKey="@Properties.SecondsColor" title="@Strings.SecondsColor">
 		<settingConfig type="alphaNumeric" />
 	</setting>
 

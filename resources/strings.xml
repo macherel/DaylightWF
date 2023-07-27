@@ -3,7 +3,8 @@
 
 	<string id="Flip">Flip</string>
 	<string id="DisplayDial">Dial</string>
-	<string id="DisplayMinute">Minute size</string>
+	<string id="DisplayMinute">Minute size [0-100]</string>
+	<string id="DisplaySeconds">Display seconds</string>
 	<string id="HoursPrecision">24h/12h</string>
 	<string id="Precision">Precision (60/30 min)</string>
 	<string id="NorthDetail">North detail</string>
@@ -11,11 +12,17 @@
 	<string id="SouthDetail">South detail</string>
 	<string id="WestDetail">West detail</string>
 	<string id="DateFormat">Date format</string>
+	<string id="TimeFormat">Time format</string>
 	<string id="DisplayBattery">Display battery</string>
 	<string id="BatteryDetails">Battery details</string>
 	<string id="ShowNotifications">Show notifications</string>
 	<string id="ShowDisconnected">Show disconnected</string>
 	<string id="ShowIcons">Show icons</string>
+
+	<string id="Off">Off</string>
+	<string id="OverMinutes">Over Minutes</string>
+	<string id="OverHours">Over Hours</string>
+	<string id="Full">Full</string>
 
 	<string id="None">None</string>
 	<string id="Simple">Simple</string>
@@ -32,17 +39,22 @@
 	<string id="DateFormat_MMM_DD">MMM DD</string>
 	<string id="DateFormat_DD_MM">DD/MM</string>
 	<string id="DateFormat_DD_MMM">DD MMM</string>
+	<string id="TimeFormat_hh_mm">hh:mm</string>
+	<string id="TimeFormat_hh_mm_ss">hh:mm:ss</string>
 	<string id="PredifinedBrightColor">Day color</string>
 	<string id="PredifinedDarkColor">Night color</string>
-	<string id="PredifinedMinutesColor">Minutes color</string>
 	<string id="PredifinedHoursColor">Hours color</string>
+	<string id="PredifinedMinutesColor">Minutes color</string>
+	<string id="PredifinedSecondsColor">Seconds color</string>
 	<string id="PredifinedBatteryColor">Battery circle</string>
 	<string id="BrightColor"></string>
 	<string id="DarkColor"></string>
 	<string id="HoursColor"></string>
 	<string id="MinutesColor"></string>
+	<string id="SecondsColor"></string>
 	<string id="BatteryColor"></string>
 
+	<string id="Auto">Auto</string>
 	<string id="Custom">Custom</string>
 	<string id="Black">Black</string>
 	<string id="Blue">Blue</string>

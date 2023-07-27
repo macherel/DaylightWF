@@ -13,6 +13,8 @@ class DaylightWFView extends WatchUi.WatchFace {
 	var caloriesIco = null;
 
 	var radius = 0;
+	var minutesRadius = 0;
+	var hoursRadius = 0;
 	var cx = 0;
 	var cy = 0;
 	var dx = 0;
@@ -58,10 +60,13 @@ class DaylightWFView extends WatchUi.WatchFace {
 			stepsIco = createBufferedBitmap(stepsIco);
 			caloriesIco = createBufferedBitmap(caloriesIco);
 		}
-		applyPalette();
+		init();
 	}
 	
-	function applyPalette() {
+	function init() {
+		var displayMinute = Settings.displayMinute;
+		minutesRadius = displayMinute ? radius : 0;
+		hoursRadius = displayMinute ? radius * (1.0 - (displayMinute+1.0)/100.0) : radius;
 		if(Graphics has :BufferedBitmap) { // check to see if device has BufferedBitmap enabled
 			bluetoothOff.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
 			heartRateIco.setPalette([Settings.darkColor, Settings.brightColor, Graphics.COLOR_TRANSPARENT]);
@@ -81,7 +86,6 @@ class DaylightWFView extends WatchUi.WatchFace {
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);
 
-		var displayMinute = Settings.displayMinute;
 		var hoursPrecision = Settings.hoursPrecision?2:1;
 		var precision = Settings.precision?2:1;
 		var displayDial = Settings.displayDial;
@@ -96,38 +100,46 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var clockTime = System.getClockTime();
 
 		// Update the view
-		var r = radius;
-
-		var d = 0;
+		var minutesAngle = 0;
+		var minutesclockwised = precision==1 || clockTime.min<30;
+		var hoursAngle = 0;
+		var hoursclockwised = hoursPrecision==1 || clockTime.hour<12;
 		dc.setColor(brightColor, darkColor);
 		dc.clear();
 
 		// Draw minutes arc
-		if(displayMinute > 0) {
-			d = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10 / precision);
-			displayArc(dc, cx, cy, r, precision==1 || clockTime.min<30, d, minutesColor, darkColor, true);
-			r = r * (1.0 - (displayMinute+1.0)/100.0);
+		if(minutesRadius > 0) {
+			minutesAngle = (clockTime.min % (60/precision) * 60 + clockTime.sec) / (10 / precision);
+			displayArc(dc, cx, cy, minutesRadius, minutesclockwised, minutesAngle, minutesColor, darkColor, true);
+			// Display seconds
+			if(Settings.displaySeconds == 1) {
+				drawSeconds(dc, clockTime.sec, minutesRadius, minutesAngle, minutesclockwised, minutesColor, darkColor);
+			}
 		}
 		// Draw hours arc
-		if(r > 0) {
-			d = (clockTime.hour % (24/hoursPrecision) * 60 + clockTime.min) / (4/hoursPrecision);
-			displayArc(dc, cx, cy, r, hoursPrecision==1 || clockTime.hour<12, d, hoursColor, darkColor, true);
+		if(hoursRadius > 0) {
+			hoursAngle = (clockTime.hour % (24/hoursPrecision) * 60 + clockTime.min) / (4/hoursPrecision);
+			displayArc(dc, cx, cy, hoursRadius, hoursclockwised, hoursAngle, hoursColor, darkColor, true);
 			// Display Battery info
 			if(Settings.batteryDetails > 0) {
 				var systemStats = System.getSystemStats();
 				if(systemStats has :charging && systemStats.charging) {
 					// Draw charging arc
-					displayArc(dc, cx, cy, r * ((100-systemStats.battery)/100), clockTime.hour<12, d, 0x404040, darkColor, false);
+					displayArc(dc, cx, cy, hoursRadius * ((100-systemStats.battery)/100), clockTime.hour<12, hoursAngle, 0x404040, darkColor, false);
 				} else {
 					dc.setColor(darkColor,darkColor);
-					dc.fillCircle(cx, cy, r * ((100-systemStats.battery)/100));
+					dc.fillCircle(cx, cy, hoursRadius * ((100-systemStats.battery)/100));
 				}
 				dc.setPenWidth(1);
 				dc.setColor(batteryColor,darkColor);
 				for(var i=1; i<Settings.batteryDetails; i++) {
 					var l = 1.0 * i * (100/Settings.batteryDetails);
-					dc.drawCircle(cx, cy, r * ((100-l)/100));
+					dc.drawCircle(cx, cy, hoursRadius * ((100-l)/100));
 				}
+			}
+			// Display seconds
+			if(Settings.displaySeconds == 2) {
+				drawSeconds(dc, clockTime.sec, hoursRadius, hoursAngle, hoursclockwised, hoursColor, darkColor);
 			}
 		}
 		
@@ -159,13 +171,49 @@ class DaylightWFView extends WatchUi.WatchFace {
 
 		// Draw Dial
 		if(displayDial > 0) {
-			drawDial(dc, r);
+			drawDial(dc, hoursRadius);
+		}
+
+		// Display seconds
+		if(Settings.displaySeconds == 3) {
+			drawSeconds(dc, clockTime.sec, minutesRadius, minutesAngle, minutesclockwised, minutesColor, darkColor);
+			drawSeconds(dc, clockTime.sec, hoursRadius, hoursAngle, hoursclockwised, hoursColor, darkColor);
 		}
 
 		drawDetail(dc, Settings.northDetail, :NORTH, darkColor, brightColor, hoursColor, clockTime.hour);
 		drawDetail(dc, Settings.eastDetail,  :EAST,  darkColor, brightColor, hoursColor, clockTime.hour);
 		drawDetail(dc, Settings.southDetail, :SOUTH, darkColor, brightColor, hoursColor, clockTime.hour);
 		drawDetail(dc, Settings.westDetail,  :WEST,  darkColor, brightColor, hoursColor, clockTime.hour);
+	}
+
+	function drawSeconds(dc, seconds, secondsRadius, arcAngle, arcClockwised, brightColor, darkColor) {
+		dc.setPenWidth(3);
+		var angle = Math.PI * 2 * seconds / 60;
+		if(Settings.flip) {
+			if(angle > Math.PI) {
+				angle -= Math.PI;
+			} else {
+				angle += Math.PI;
+			}
+		}
+		var sin = Math.sin(angle);
+		var cos = Math.cos(angle);
+
+		var color = getSecondsColor(seconds*6, arcAngle, arcClockwised, brightColor, darkColor);
+		dc.setColor(color, color);
+		dc.drawLine(cx, cy, cx + sin * secondsRadius, cy - cos * secondsRadius);
+	}
+
+	function getSecondsColor(secondsAngle, arcAngle, clockwised, brightColor, darkColor) {
+			var secondsColor = Settings.secondsColor;
+			if(secondsColor == null) {
+				secondsColor = brightColor;
+				if((clockwised && secondsAngle < arcAngle) 
+						|| (!clockwised && secondsAngle > arcAngle)) {
+					secondsColor = darkColor;
+				}
+			}
+			return secondsColor;
 	}
 
 	function displayArc(dc, cx, cy, r, clockwised, degree, brightColor, darkColor, border) {
@@ -299,7 +347,12 @@ class DaylightWFView extends WatchUi.WatchFace {
 		var hour = clockTime.hour.format("%02d");
 		var min = clockTime.min.format("%02d");
 
-		return hour + ":" + min;
+		var time = hour + ":" + min;
+		if(Settings.timeFormat % 10 != 0) {
+			var sec = clockTime.sec.format("%02d");
+			time += ":" + sec;
+		}
+		return time;
 	}
 
 	function drawText(dc, text, icon, position, darkColor, brightColor, hoursColor, hour) {
