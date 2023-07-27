@@ -1,5 +1,6 @@
 using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
+import Toybox.System;
 
 module Settings {
 
@@ -52,7 +53,7 @@ module Settings {
 			0x000000  // Black
 		];
 
-		centeredDisplay = App.loadResource(Rez.JsonData.centeredDisplay);;
+		centeredDisplay = Ui.loadResource(Rez.Strings.centeredDisplay).equals("true");
 		flip = getProperty("Flip");
 		displayDial = getProperty("DisplayDial");
 		displayMinute = getProperty("DisplayMinute");
